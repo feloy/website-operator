@@ -1,3 +1,7 @@
 domain: example.com
 repo: example.com/website/v1alpha1
+resources:
+- group: website
+  kind: Static
+  version: v1alpha1
 version: "2"

@@ -40,4 +40,5 @@ $ ab ab -n 10000 -c 200 http://$IP
 
   $ kubebuilder init --domain example.com
   
+  $ kubebuilder create api --group website --version v1alpha1 --kind Static
   ```
