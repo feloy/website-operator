@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Common Definitions on Kubernetes Reference</title>
+    <link>https://www.k8sref.io/docs/part6/</link>
+    <description>Recent content in Common Definitions on Kubernetes Reference</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2020 The Kubernetes Authors</copyright>
+    
+        <atom:link href="https://www.k8sref.io/docs/part6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+      
+      <item>
+        <title>JSONSchemaProps</title>
+        <link>https://www.k8sref.io/docs/part6/jsonschemaprops/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part6/jsonschemaprops/</guid>
+        <description>JSONSchemaProps JSONSchemaProps apiextensions.v1.JSONSchemaProps
+JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+  $ref (string)
+  $schema (string)
+  additionalItems (JSONSchemaPropsOrBool)
+  additionalProperties (JSONSchemaPropsOrBool)
+  allOf ([]JSONSchemaProps)
+  anyOf ([]JSONSchemaProps)
+  default (JSON)
+default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
+  definitions (object)
+  dependencies (object)</description>
+      </item>
+      
+      <item>
+        <title>Affinity</title>
+        <link>https://www.k8sref.io/docs/part6/affinity/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part6/affinity/</guid>
+        <description>Affinity NodeAffinity core.v1.NodeAffinity
+Node affinity is a group of node affinity scheduling rules.
+  preferredDuringSchedulingIgnoredDuringExecution ([]PreferredSchedulingTerm)
+The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.</description>
+      </item>
+      
+      <item>
+        <title>Types</title>
+        <link>https://www.k8sref.io/docs/part6/types/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part6/types/</guid>
+        <description>Types FieldsV1 meta.v1.FieldsV1
+FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.
+Each key is either a &#39;.&#39; representing the field itself, and will always map to an empty set, or a string representing a sub-field or item. The string will follow one of these four formats: &#39;f:&amp;lt;name&amp;gt;&#39;, where &amp;lt;name&amp;gt; is the name of a field in a struct, or key in a map &#39;v:&amp;lt;value&amp;gt;&#39;, where &amp;lt;value&amp;gt; is the exact json formatted value of a list item &#39;i:&amp;lt;index&amp;gt;&#39;, where &amp;lt;index&amp;gt; is position of a item in a list &#39;k:&amp;lt;keys&amp;gt;&#39;, where &amp;lt;keys&amp;gt; is a map of a list item&#39;s key fields to their unique values If a key maps to an empty Fields value, the field that key represents is part of the set.</description>
+      </item>
+      
+      <item>
+        <title>References and Selectors</title>
+        <link>https://www.k8sref.io/docs/part6/references-and-selectors/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part6/references-and-selectors/</guid>
+        <description>References and Selectors BoundObjectReference authentication.v1.BoundObjectReference
+BoundObjectReference is a reference to an object that a token is bound to.
+  apiVersion (string)
+API version of the referent.
+  kind (string)
+Kind of the referent. Valid kinds are &#39;Pod&#39; and &#39;Secret&#39;.
+  name (string)
+Name of the referent.
+  uid (string)
+UID of the referent.
+  ObjectReference core.v1.ObjectReference
+ObjectReference contains enough information to let you inspect or modify the referred object.</description>
+      </item>
+      
+      <item>
+        <title>Meta</title>
+        <link>https://www.k8sref.io/docs/part6/meta/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part6/meta/</guid>
+        <description>Meta ObjectMeta meta.v1.ObjectMeta
+ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
+  name (string)
+Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+  namespace (string)</description>
+      </item>
+      
+    
+  </channel>
+</rss>

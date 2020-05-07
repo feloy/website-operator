@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Config and Storage Resources on Kubernetes Reference</title>
+    <link>https://www.k8sref.io/docs/part3/</link>
+    <description>Recent content in Config and Storage Resources on Kubernetes Reference</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2020 The Kubernetes Authors</copyright>
+    
+        <atom:link href="https://www.k8sref.io/docs/part3/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+      
+      <item>
+        <title>ConfigMap (v1)</title>
+        <link>https://www.k8sref.io/docs/part3/configmap-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part3/configmap-v1/</guid>
+        <description>ConfigMap (v1) ConfigMap core.v1.ConfigMap
+ConfigMap holds configuration data for pods to consume.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>Secret (v1)</title>
+        <link>https://www.k8sref.io/docs/part3/secret-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part3/secret-v1/</guid>
+        <description>Secret (v1) Secret core.v1.Secret
+Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>Volume (v1)</title>
+        <link>https://www.k8sref.io/docs/part3/volume-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part3/volume-v1/</guid>
+        <description>Volume (v1) Volume core.v1.Volume
+Volume represents a named volume in a pod that may be accessed by any container in the pod.
+ name (string)
+Volume&#39;s name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names  Exposed Persistent volumes   persistentVolumeClaim (PersistentVolumeClaimVolumeSource)
+PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+  persistentVolumeClaim.claimName (string)
+ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume.</description>
+      </item>
+      
+      <item>
+        <title>PersistentVolumeClaim (v1)</title>
+        <link>https://www.k8sref.io/docs/part3/persistentvolumeclaim-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part3/persistentvolumeclaim-v1/</guid>
+        <description>PersistentVolumeClaim (v1) PersistentVolumeClaim core.v1.PersistentVolumeClaim
+PersistentVolumeClaim is a user&#39;s request for and claim to a persistent volume
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>StorageClass (v1)</title>
+        <link>https://www.k8sref.io/docs/part3/storageclass-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part3/storageclass-v1/</guid>
+        <description>StorageClass (v1) StorageClass storage.v1.StorageClass
+StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
+StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</description>
+      </item>
+      
+      <item>
+        <title>VolumeAttachment (v1)</title>
+        <link>https://www.k8sref.io/docs/part3/volumeattachment-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part3/volumeattachment-v1/</guid>
+        <description>VolumeAttachment (v1) VolumeAttachment storage.v1.VolumeAttachment
+VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
+VolumeAttachment objects are non-namespaced.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>CSIDriver (v1)</title>
+        <link>https://www.k8sref.io/docs/part3/csidriver-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part3/csidriver-v1/</guid>
+        <description>CSIDriver (v1) CSIDriver storage.v1.CSIDriver
+CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.</description>
+      </item>
+      
+      <item>
+        <title>CSINode (v1)</title>
+        <link>https://www.k8sref.io/docs/part3/csinode-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part3/csinode-v1/</guid>
+        <description>CSINode (v1) CSINode storage.v1.CSINode
+CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn&#39;t create this object.</description>
+      </item>
+      
+    
+  </channel>
+</rss>

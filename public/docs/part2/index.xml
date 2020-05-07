@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Service Resources on Kubernetes Reference</title>
+    <link>https://www.k8sref.io/docs/part2/</link>
+    <description>Recent content in Service Resources on Kubernetes Reference</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2020 The Kubernetes Authors</copyright>
+    
+        <atom:link href="https://www.k8sref.io/docs/part2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+      
+      <item>
+        <title>Service (v1)</title>
+        <link>https://www.k8sref.io/docs/part2/service-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part2/service-v1/</guid>
+        <description>Service (v1) Service core.v1.Service
+Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.</description>
+      </item>
+      
+      <item>
+        <title>Endpoints (v1)</title>
+        <link>https://www.k8sref.io/docs/part2/endpoints-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part2/endpoints-v1/</guid>
+        <description>Endpoints (v1) Endpoints core.v1.Endpoints
+Endpoints is a collection of endpoints that implement the actual service. Example:
+Name: &amp;quot;mysvc&amp;quot;,
+Subsets: [
+{
+Addresses: [{&amp;quot;ip&amp;quot;: &amp;quot;10.10.1.1&amp;quot;}, {&amp;quot;ip&amp;quot;: &amp;quot;10.10.2.2&amp;quot;}],
+Ports: [{&amp;quot;name&amp;quot;: &amp;quot;a&amp;quot;, &amp;quot;port&amp;quot;: 8675}, {&amp;quot;name&amp;quot;: &amp;quot;b&amp;quot;, &amp;quot;port&amp;quot;: 309}]
+},
+{
+Addresses: [{&amp;quot;ip&amp;quot;: &amp;quot;10.10.3.3&amp;quot;}],
+Ports: [{&amp;quot;name&amp;quot;: &amp;quot;a&amp;quot;, &amp;quot;port&amp;quot;: 93}, {&amp;quot;name&amp;quot;: &amp;quot;b&amp;quot;, &amp;quot;port&amp;quot;: 76}]
+},
+]
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.</description>
+      </item>
+      
+      <item>
+        <title>EndpointSlice (v1beta1)</title>
+        <link>https://www.k8sref.io/docs/part2/endpointslice-v1beta1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part2/endpointslice-v1beta1/</guid>
+        <description>EndpointSlice (v1beta1) EndpointSlice discovery.v1beta1.EndpointSlice
+EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.</description>
+      </item>
+      
+      <item>
+        <title>Ingress (v1beta1)</title>
+        <link>https://www.k8sref.io/docs/part2/ingress-v1beta1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part2/ingress-v1beta1/</guid>
+        <description>Ingress (v1beta1) Ingress networking.v1beta1.Ingress
+Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.</description>
+      </item>
+      
+      <item>
+        <title>IngressClass (v1beta1)</title>
+        <link>https://www.k8sref.io/docs/part2/ingressclass-v1beta1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part2/ingressclass-v1beta1/</guid>
+        <description>IngressClass (v1beta1) IngressClass networking.v1beta1.IngressClass
+IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The ingressclass.kubernetes.io/is-default-class annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.</description>
+      </item>
+      
+    
+  </channel>
+</rss>

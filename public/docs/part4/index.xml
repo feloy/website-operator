@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Metadata Resources on Kubernetes Reference</title>
+    <link>https://www.k8sref.io/docs/part4/</link>
+    <description>Recent content in Metadata Resources on Kubernetes Reference</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2020 The Kubernetes Authors</copyright>
+    
+        <atom:link href="https://www.k8sref.io/docs/part4/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+      
+      <item>
+        <title>ControllerRevision (v1)</title>
+        <link>https://www.k8sref.io/docs/part4/controllerrevision-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/controllerrevision-v1/</guid>
+        <description>ControllerRevision (v1) ControllerRevision apps.v1.ControllerRevision
+ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta.</description>
+      </item>
+      
+      <item>
+        <title>CustomResourceDefinition (v1)</title>
+        <link>https://www.k8sref.io/docs/part4/customresourcedefinition-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/customresourcedefinition-v1/</guid>
+        <description>CustomResourceDefinition (v1) CustomResourceDefinition apiextensions.v1.CustomResourceDefinition
+CustomResourceDefinition represents a resource that should be exposed on the API server. Its name MUST be in the format &amp;lt;.spec.name&amp;gt;.&amp;lt;.spec.group&amp;gt;.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>Event (v1)</title>
+        <link>https://www.k8sref.io/docs/part4/event-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/event-v1/</guid>
+        <description>Event (v1) Event core.v1.Event
+Event is a report of an event somewhere in the cluster.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>LimitRange (v1)</title>
+        <link>https://www.k8sref.io/docs/part4/limitrange-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/limitrange-v1/</guid>
+        <description>LimitRange (v1) LimitRange core.v1.LimitRange
+LimitRange sets resource usage limits for each kind of resource in a Namespace.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>HorizontalPodAutoscaler (v1)</title>
+        <link>https://www.k8sref.io/docs/part4/horizontalpodautoscaler-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/horizontalpodautoscaler-v1/</guid>
+        <description>HorizontalPodAutoscaler (v1) HorizontalPodAutoscaler autoscaling.v1.HorizontalPodAutoscaler
+configuration of a horizontal pod autoscaler.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>MutatingWebhookConfiguration (v1)</title>
+        <link>https://www.k8sref.io/docs/part4/mutatingwebhookconfiguration-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/mutatingwebhookconfiguration-v1/</guid>
+        <description>MutatingWebhookConfiguration (v1) MutatingWebhookConfiguration admissionregistration.v1.MutatingWebhookConfiguration
+MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>ValidatingWebhookConfiguration (v1)</title>
+        <link>https://www.k8sref.io/docs/part4/validatingwebhookconfiguration-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/validatingwebhookconfiguration-v1/</guid>
+        <description>ValidatingWebhookConfiguration (v1) ValidatingWebhookConfiguration admissionregistration.v1.ValidatingWebhookConfiguration
+ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>PodTemplate (v1)</title>
+        <link>https://www.k8sref.io/docs/part4/podtemplate-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/podtemplate-v1/</guid>
+        <description>PodTemplate (v1) PodTemplate core.v1.PodTemplate
+PodTemplate describes a template for creating copies of a predefined pod.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>PriorityClass (v1)</title>
+        <link>https://www.k8sref.io/docs/part4/priorityclass-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/priorityclass-v1/</guid>
+        <description>PriorityClass (v1) PriorityClass scheduling.v1.PriorityClass
+PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>PodDisruptionBudget (v1beta1)</title>
+        <link>https://www.k8sref.io/docs/part4/poddisruptionbudget-v1beta1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/poddisruptionbudget-v1beta1/</guid>
+        <description>PodDisruptionBudget (v1beta1) PodDisruptionBudget policy.v1beta1.PodDisruptionBudget
+PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>PodSecurityPolicy (v1beta1)</title>
+        <link>https://www.k8sref.io/docs/part4/podsecuritypolicy-v1beta1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/podsecuritypolicy-v1beta1/</guid>
+        <description>PodSecurityPolicy (v1beta1) PodSecurityPolicy policy.v1beta1.PodSecurityPolicy
+PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>PodPreset (v1alpha1)</title>
+        <link>https://www.k8sref.io/docs/part4/podpreset-v1alpha1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part4/podpreset-v1alpha1/</guid>
+        <description>PodPreset (v1alpha1) PodPreset settings.v1alpha1.PodPreset
+PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+    
+  </channel>
+</rss>

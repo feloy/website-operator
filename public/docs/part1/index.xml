@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Workloads Resources on Kubernetes Reference</title>
+    <link>https://www.k8sref.io/docs/part1/</link>
+    <description>Recent content in Workloads Resources on Kubernetes Reference</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2020 The Kubernetes Authors</copyright>
+    
+        <atom:link href="https://www.k8sref.io/docs/part1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+      
+      <item>
+        <title>Pod (v1)</title>
+        <link>https://www.k8sref.io/docs/part1/pod-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part1/pod-v1/</guid>
+        <description>Pod (v1) Pod core.v1.Pod
+Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>Container (v1)</title>
+        <link>https://www.k8sref.io/docs/part1/container-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part1/container-v1/</guid>
+        <description>Container (v1) Container core.v1.Container
+A single application container that you want to run within a pod.
+Image   image (string)
+Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
+  imagePullPolicy (string)
+Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise.</description>
+      </item>
+      
+      <item>
+        <title>EphemeralContainer (v1)</title>
+        <link>https://www.k8sref.io/docs/part1/ephemeralcontainer-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part1/ephemeralcontainer-v1/</guid>
+        <description>EphemeralContainer (v1) EphemeralContainer core.v1.EphemeralContainer
+An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a pod is removed or restarted. If an ephemeral container causes a pod to exceed its resource allocation, the pod may be evicted. Ephemeral containers may not be added by directly updating the pod spec.</description>
+      </item>
+      
+      <item>
+        <title>ReplicaSet (v1)</title>
+        <link>https://www.k8sref.io/docs/part1/replicaset-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part1/replicaset-v1/</guid>
+        <description>ReplicaSet (v1) ReplicaSet apps.v1.ReplicaSet
+ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>Deployment (v1)</title>
+        <link>https://www.k8sref.io/docs/part1/deployment-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part1/deployment-v1/</guid>
+        <description>Deployment (v1) Deployment apps.v1.Deployment
+Deployment enables declarative updates for Pods and ReplicaSets.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>StatefulSet (v1)</title>
+        <link>https://www.k8sref.io/docs/part1/statefulset-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part1/statefulset-v1/</guid>
+        <description>StatefulSet (v1) StatefulSet apps.v1.StatefulSet
+StatefulSet represents a set of pods with consistent identities. Identities are defined as:
+  Network: A single stable DNS and hostname.
+  Storage: As many VolumeClaims as requested.
+The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.</description>
+      </item>
+      
+      <item>
+        <title>DaemonSet (v1)</title>
+        <link>https://www.k8sref.io/docs/part1/daemonset-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part1/daemonset-v1/</guid>
+        <description>DaemonSet (v1) DaemonSet apps.v1.DaemonSet
+DaemonSet represents the configuration of a daemon set.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>ReplicationController (v1)</title>
+        <link>https://www.k8sref.io/docs/part1/replicationcontroller-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part1/replicationcontroller-v1/</guid>
+        <description>ReplicationController (v1) ReplicationController core.v1.ReplicationController
+ReplicationController represents the configuration of a replication controller.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>Job (v1)</title>
+        <link>https://www.k8sref.io/docs/part1/job-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part1/job-v1/</guid>
+        <description>Job (v1) Job batch.v1.Job
+Job represents the configuration of a single job.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>CronJob (v1beta1)</title>
+        <link>https://www.k8sref.io/docs/part1/cronjob-v1beta1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part1/cronjob-v1beta1/</guid>
+        <description>CronJob (v1beta1) CronJob batch.v1beta1.CronJob
+CronJob represents the configuration of a single cron job.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+    
+  </channel>
+</rss>

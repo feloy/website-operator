@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part3/configmap-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/controllerrevision-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part6/jsonschemaprops/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/node-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/pod-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part2/service-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part6/affinity/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/container-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/customresourcedefinition-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part2/endpoints-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/namespace-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part3/secret-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part2/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part3/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part2/endpointslice-v1beta1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/ephemeralcontainer-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/event-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/serviceaccount-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part6/types/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part3/volume-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/clusterrole-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part2/ingress-v1beta1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/limitrange-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part3/persistentvolumeclaim-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part6/references-and-selectors/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/replicaset-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/clusterrolebinding-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/deployment-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/horizontalpodautoscaler-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part2/ingressclass-v1beta1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part6/meta/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part3/storageclass-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part6/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/mutatingwebhookconfiguration-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/role-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/statefulset-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part3/volumeattachment-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part3/csidriver-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/daemonset-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/rolebinding-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/validatingwebhookconfiguration-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part3/csinode-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/persistentvolume-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/podtemplate-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/replicationcontroller-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/job-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/priorityclass-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/resourcequota-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part1/cronjob-v1beta1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/networkpolicy-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/poddisruptionbudget-v1beta1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/localsubjectaccessreview-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/podsecuritypolicy-v1beta1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part4/podpreset-v1alpha1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/selfsubjectaccessreview-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/selfsubjectrulesreview-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/subjectaccessreview-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/tokenrequest-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/tokenreview-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/apiservice-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/componentstatus-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/lease-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/runtimeclass-v1beta1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/certificatesigningrequest-v1beta1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/auditsink-v1alpha1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/flowschema-v1alpha1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/prioritylevelconfiguration-v1alpha1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/part5/binding-v1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/</loc>
+    <lastmod>2020-03-31T04:15:05+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.k8sref.io/docs/</loc>
+  </url>
+  
+</urlset>

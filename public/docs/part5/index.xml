@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cluster Resources on Kubernetes Reference</title>
+    <link>https://www.k8sref.io/docs/part5/</link>
+    <description>Recent content in Cluster Resources on Kubernetes Reference</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2020 The Kubernetes Authors</copyright>
+    
+        <atom:link href="https://www.k8sref.io/docs/part5/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+      
+      <item>
+        <title>Node (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/node-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/node-v1/</guid>
+        <description>Node (v1) Node core.v1.Node
+Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>Namespace (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/namespace-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/namespace-v1/</guid>
+        <description>Namespace (v1) Namespace core.v1.Namespace
+Namespace provides a scope for Names. Use of multiple namespaces is optional.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>ServiceAccount (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/serviceaccount-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/serviceaccount-v1/</guid>
+        <description>ServiceAccount (v1) ServiceAccount core.v1.ServiceAccount
+ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</description>
+      </item>
+      
+      <item>
+        <title>ClusterRole (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/clusterrole-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/clusterrole-v1/</guid>
+        <description>ClusterRole (v1) ClusterRole rbac.v1.ClusterRole
+ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>ClusterRoleBinding (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/clusterrolebinding-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/clusterrolebinding-v1/</guid>
+        <description>ClusterRoleBinding (v1) ClusterRoleBinding rbac.v1.ClusterRoleBinding
+ClusterRoleBinding references a ClusterRole, but not contain it. It can reference a ClusterRole in the global namespace, and adds who information via Subject.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>Role (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/role-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/role-v1/</guid>
+        <description>Role (v1) Role rbac.v1.Role
+Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>RoleBinding (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/rolebinding-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/rolebinding-v1/</guid>
+        <description>RoleBinding (v1) RoleBinding rbac.v1.RoleBinding
+RoleBinding references a role, but does not contain it. It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in. RoleBindings in a given namespace only have effect in that namespace.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object.</description>
+      </item>
+      
+      <item>
+        <title>PersistentVolume (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/persistentvolume-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/persistentvolume-v1/</guid>
+        <description>PersistentVolume (v1) PersistentVolume core.v1.PersistentVolume
+PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>ResourceQuota (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/resourcequota-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/resourcequota-v1/</guid>
+        <description>ResourceQuota (v1) ResourceQuota core.v1.ResourceQuota
+ResourceQuota sets aggregate quota restrictions enforced per namespace
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>NetworkPolicy (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/networkpolicy-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/networkpolicy-v1/</guid>
+        <description>NetworkPolicy (v1) NetworkPolicy networking.v1.NetworkPolicy
+NetworkPolicy describes what network traffic is allowed for a set of Pods
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>LocalSubjectAccessReview (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/localsubjectaccessreview-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/localsubjectaccessreview-v1/</guid>
+        <description>LocalSubjectAccessReview (v1) LocalSubjectAccessReview authorization.v1.LocalSubjectAccessReview
+LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.</description>
+      </item>
+      
+      <item>
+        <title>SelfSubjectAccessReview (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/selfsubjectaccessreview-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/selfsubjectaccessreview-v1/</guid>
+        <description>SelfSubjectAccessReview (v1) SelfSubjectAccessReview authorization.v1.SelfSubjectAccessReview
+SelfSubjectAccessReview checks whether or the current user can perform an action. Not filling in a spec.namespace means &amp;quot;in all namespaces&amp;quot;. Self is a special case, because users should always be able to check whether they can perform an action
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.</description>
+      </item>
+      
+      <item>
+        <title>SelfSubjectRulesReview (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/selfsubjectrulesreview-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/selfsubjectrulesreview-v1/</guid>
+        <description>SelfSubjectRulesReview (v1) SelfSubjectRulesReview authorization.v1.SelfSubjectRulesReview
+SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server&#39;s authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns.</description>
+      </item>
+      
+      <item>
+        <title>SubjectAccessReview (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/subjectaccessreview-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/subjectaccessreview-v1/</guid>
+        <description>SubjectAccessReview (v1) SubjectAccessReview authorization.v1.SubjectAccessReview
+SubjectAccessReview checks whether or not a user or group can perform an action.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>TokenRequest (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/tokenrequest-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/tokenrequest-v1/</guid>
+        <description>TokenRequest (v1) TokenRequest authentication.v1.TokenRequest
+TokenRequest requests a token for a given service account.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>TokenReview (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/tokenreview-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/tokenreview-v1/</guid>
+        <description>TokenReview (v1) TokenReview authentication.v1.TokenReview
+TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents.</description>
+      </item>
+      
+      <item>
+        <title>APIService (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/apiservice-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/apiservice-v1/</guid>
+        <description>APIService (v1) APIService apiregistration.v1.APIService
+APIService represents a server for a particular GroupVersion. Name must be &amp;quot;version.group&amp;quot;.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>ComponentStatus (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/componentstatus-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/componentstatus-v1/</guid>
+        <description>ComponentStatus (v1) ComponentStatus core.v1.ComponentStatus
+ComponentStatus (and ComponentStatusList) holds the cluster validation info.
+Resource metadata   apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>Lease (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/lease-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/lease-v1/</guid>
+        <description>Lease (v1) Lease coordination.v1.Lease
+Lease defines a lease concept.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated.</description>
+      </item>
+      
+      <item>
+        <title>RuntimeClass (v1beta1)</title>
+        <link>https://www.k8sref.io/docs/part5/runtimeclass-v1beta1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/runtimeclass-v1beta1/</guid>
+        <description>RuntimeClass (v1beta1) RuntimeClass node.v1beta1.RuntimeClass
+RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod. For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+Resource metadata   apiVersion (string)</description>
+      </item>
+      
+      <item>
+        <title>CertificateSigningRequest (v1beta1)</title>
+        <link>https://www.k8sref.io/docs/part5/certificatesigningrequest-v1beta1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/certificatesigningrequest-v1beta1/</guid>
+        <description>CertificateSigningRequest (v1beta1) CertificateSigningRequest certificates.v1beta1.CertificateSigningRequest
+Describes a certificate signing request
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated.</description>
+      </item>
+      
+      <item>
+        <title>AuditSink (v1alpha1)</title>
+        <link>https://www.k8sref.io/docs/part5/auditsink-v1alpha1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/auditsink-v1alpha1/</guid>
+        <description>AuditSink (v1alpha1) AuditSink auditregistration.v1alpha1.AuditSink
+AuditSink represents a cluster level audit sink
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>FlowSchema (v1alpha1)</title>
+        <link>https://www.k8sref.io/docs/part5/flowschema-v1alpha1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/flowschema-v1alpha1/</guid>
+        <description>FlowSchema (v1alpha1) FlowSchema flowcontrol.v1alpha1.FlowSchema
+FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a &amp;quot;flow distinguisher&amp;quot;.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.</description>
+      </item>
+      
+      <item>
+        <title>PriorityLevelConfiguration (v1alpha1)</title>
+        <link>https://www.k8sref.io/docs/part5/prioritylevelconfiguration-v1alpha1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/prioritylevelconfiguration-v1alpha1/</guid>
+        <description>PriorityLevelConfiguration (v1alpha1) PriorityLevelConfiguration flowcontrol.v1alpha1.PriorityLevelConfiguration
+PriorityLevelConfiguration represents the configuration of a priority level.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to.</description>
+      </item>
+      
+      <item>
+        <title>Binding (v1)</title>
+        <link>https://www.k8sref.io/docs/part5/binding-v1/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.k8sref.io/docs/part5/binding-v1/</guid>
+        <description>Binding (v1) Binding core.v1.Binding
+Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+  apiVersion (string)
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  kind (string)</description>
+      </item>
+      
+    
+  </channel>
+</rss>

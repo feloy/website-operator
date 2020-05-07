@@ -1,0 +1,3539 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pod (v1) – Kubernetes Reference</title>
+    
+
+
+<script src="/js/enquire.min.dfb99dee1e029d51d6cfb672d847929890b1585402de17f5ed092edd72a688b4.js"></script>
+
+<script defer src="/js/fuse.min.94c78ad70b02749822921660cf4e9f0b3701bc0680c421afb784a78228de0275.js"></script>
+
+<script defer src="/js/lazysizes.min.31dd6a2d3a1ec0f78a8df007535cf23f03aeb5c70f026e6d6a19dac3b3acc340.js"></script>
+
+<script defer src="/js/helper/getParents.min.1618c696be7c98933f9a92677f518b512a74e55bdbb976b09936b4182e93181b.js"></script>
+
+<script defer src="/js/helper/fadeinout.min.93a331f96194789a542f33690bbe4f0c102c7e78ffc018217f5a1c33010bad91.js"></script>
+
+<script>
+  "use strict";
+
+  
+  var languagedir = JSON.parse("\"ltr\"");
+
+  window.onload = function() {
+
+    
+    var toggleSidebarElem = document.getElementById("toggle-sidebar");
+    var tocBodyElem = document.querySelector('.toc__body');
+    var tocLabelElem = document.querySelector('.toc__label');
+    var listMainElem = document.getElementById('list-main');
+    var listSideElem = document.getElementById('list-side');
+    var sliderIcons = document.querySelectorAll('.slider__icon');
+
+    toggleSidebarElem ?
+      toggleSidebarElem.addEventListener('change', function (e) {
+        if (e.target.checked) {
+          if (tocBodyElem) {
+            fadeIn(tocBodyElem, 200);
+          }
+          if (tocLabelElem) {
+            fadeIn(tocLabelElem, 200);
+          }
+          if (listMainElem && listSideElem) {
+            listMainElem.className = 'm';
+            listSideElem.className = 'r';
+          }
+
+          sliderIcons && sliderIcons.forEach(function (elem) {
+            if (elem.classList.contains('hide')) {
+              elem.classList.remove('hide');
+            } else {
+              elem.classList.add('hide');
+            }
+          });
+
+        } else {
+          if (tocBodyElem) {
+            fadeOut(tocBodyElem, 200);
+          }
+          if (tocLabelElem) {
+            fadeOut(tocLabelElem, 200);
+          }
+          if (listMainElem && listSideElem) {
+            listMainElem.className = 'mr';
+            listSideElem.className = 'hide';
+          }
+
+          sliderIcons && sliderIcons.forEach(function (elem) {
+            if (elem.classList.contains('hide')) {
+              elem.classList.remove('hide');
+            } else {
+              elem.classList.add('hide');
+            }
+          });
+        }
+      }) : null;
+    
+
+    
+    var navCollapseBtn = document.getElementById('navCollapseBtn');
+    navCollapseBtn ? navCollapseBtn.addEventListener('click', function(e) {
+      var navCollapse = document.querySelector('.navbar__collapse');
+      
+      if (navCollapse) {
+        var dataOpen = navCollapse.getAttribute('data-open');
+
+        if (dataOpen === 'true') {
+          navCollapse.setAttribute('data-open', 'false');
+          navCollapse.style.maxHeight = 0;
+        } else {
+          navCollapse.setAttribute('data-open', 'true');
+          navCollapse.style.maxHeight = navCollapse.scrollHeight + "px";
+        }
+      }
+    }) : null;
+    
+
+
+    
+    var expandBtn = document.querySelectorAll('.expand__button');
+
+    for (let i = 0; i < expandBtn.length; i++) {
+      expandBtn[i].addEventListener("click", function () {
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+          this.querySelector('svg').classList.add('expand-icon__right');
+          this.querySelector('svg').classList.remove('expand-icon__down');
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+          this.querySelector('svg').classList.remove('expand-icon__right');
+          this.querySelector('svg').classList.add('expand-icon__down');
+        }
+      });
+    }
+    
+
+    
+    
+    var root = document.getElementById('root');
+    var toggleToLightBtn = document.getElementById('toggleToLight');
+    var toggleToDarkBtn = document.getElementById('toggleToDark');
+
+    toggleToDark.onclick = function(e) {
+      root.className = 'theme__dark';
+      localStorage.setItem('theme', 'dark');
+      toggleToLightBtn.className = 'navbar__icons--icon';
+      toggleToDarkBtn.className = 'hide';
+    }
+
+    toggleToLight.onclick = function (e) {
+      root.className = 'theme__light';
+      localStorage.setItem('theme', 'light');
+      toggleToLightBtn.className = 'hide';
+      toggleToDarkBtn.className = 'navbar__icons--icon';
+    }
+
+
+    
+    document.querySelectorAll('.menu__list').forEach(function(elem) {
+      if (elem.classList.contains('active')) {
+        elem.style.maxHeight = elem.scrollHeight + "px"; 
+      }
+    });
+    
+    document.querySelectorAll('.menu__title--collapse').forEach(function(elem) {
+      elem.addEventListener('click', function (e) {
+        var content = this.nextElementSibling;
+        var menuTitleIcon = this.querySelector('.menu__title--icon');
+        if (!content) {
+          return null;
+        }
+
+        var parent = elem.parentNode;
+        while (parent.classList.contains('menu__list') && parent.classList.contains('active')) {
+          console.log('parent');
+          parent.style.maxHeight = 100 * parent.children.length + "px";
+          parent = parent.parentNode;
+        }
+
+        if (content.style.maxHeight) {
+          console.log('null');
+          content.style.maxHeight = null;
+          content.classList.remove('active');
+          menuTitleIcon.classList.add('right');
+          
+          if (languagedir === 'rtl') {
+            menuTitleIcon.classList.remove('downrtl');
+          } else {
+            menuTitleIcon.classList.remove('down');
+          }
+        } else {
+          console.log('scrollHeight');
+          content.style.maxHeight = content.scrollHeight + "px";
+          content.classList.add('active');
+          menuTitleIcon.classList.remove('right');
+          
+          if (languagedir === 'rtl') {
+            menuTitleIcon.classList.add('downrtl');
+          } else {
+            menuTitleIcon.classList.add('down');
+          }
+        }
+      });
+    });
+    
+
+
+    
+    var mobileLogo = document.getElementById('mobileLogo');
+    var modal = document.getElementById("myModal");
+    var drawer = document.getElementById('myDrawer');
+    var drawerCloseBtn = document.querySelector('.drawer__close');
+
+    var openDrawer = function() {
+      modal.style.opacity = 1;
+
+      if (languagedir === 'rtl') {
+        modal.style.right = 0;
+        drawer.style.right = 0;
+      } else {
+        modal.style.left = 0;
+        drawer.style.left = 0;
+      }
+    }
+
+    var closeDrawer = function() {
+      modal.style.opacity = 0;
+
+      if (languagedir === 'rtl') {
+        drawer.style.right = '-100%';
+      } else {
+        drawer.style.left = '-100%';
+      }
+
+      
+      setTimeout(function () {
+        if (languagedir === 'rtl') {
+          modal.style.right = '-100%';
+        } else {
+          modal.style.left = '-100%';
+        }
+      }, 250);
+    }
+
+    mobileLogo.onclick = function () {
+      openDrawer();
+      localStorage.setItem('isDrawerOpen', 'true');
+    }
+
+    modal.onclick = function () {
+      closeDrawer();
+      localStorage.setItem('isDrawerOpen', 'false');
+    }
+
+    drawerCloseBtn.onclick = function () {
+      closeDrawer();
+      localStorage.setItem('isDrawerOpen', 'false');
+    }
+  
+
+
+  
+    var lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var tocElem = document.querySelector('.toc');
+    var tableOfContentsElem = tocElem ? tocElem.querySelector('#TableOfContents') : null;
+    var singleContentsElem = document.querySelector('.single__contents');
+    var dataBGImgs = document.querySelectorAll('div[data-bgimg]');
+
+    
+    var tocLevels = JSON.parse("[\"h2\",\"h3\",\"h4\"]");
+
+    if (tocLevels) {
+      tocLevels = tocLevels.toString();
+    } else {
+      tocLevels = "h1, h2, h3, h4, h5, h6";
+    }
+
+    
+    var isLandingBgImg = JSON.parse("null");
+    
+    var isHome = JSON.parse("false");
+
+    function setNavbarBG(scrollTop) {
+      if (isHome && isLandingBgImg && Object.keys(isLandingBgImg).length) {
+        if (isLandingBgImg.height <= scrollTop) {
+          dataBGImgs.forEach(function(elem) {
+            elem.setAttribute('data-bgimg', 'false');
+          });
+        } else {
+          dataBGImgs.forEach(function (elem) {
+            elem.setAttribute('data-bgimg', 'true');
+          });
+        }
+      }
+    }
+    setNavbarBG(lastScrollTop);
+
+    window.onscroll = function () {
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > lastScrollTop) { 
+        singleContentsElem ? 
+        singleContentsElem.querySelectorAll(tocLevels.toString()).forEach(function(elem) {
+          if (document.documentElement.scrollTop >= elem.offsetTop) {
+            if (tableOfContentsElem) {
+              var id = elem.getAttribute('id');
+              tocElem.querySelectorAll('a').forEach(function (elem) {
+                elem.classList.remove('active');
+              });
+              tocElem.querySelector('a[href="#' + id + '"]') ? 
+              tocElem.querySelector('a[href="#' + id + '"]').classList.add('active') : null;
+            }
+          }
+        }) : null;
+        setNavbarBG(st);
+      } else { 
+        singleContentsElem ? 
+        singleContentsElem.querySelectorAll(tocLevels.toString()).forEach(function(elem) {
+          if (document.documentElement.scrollTop >= elem.offsetTop) {
+            if (tableOfContentsElem) {
+              var id = elem.getAttribute('id');
+              tocElem.querySelectorAll('a').forEach(function (elem) {
+                elem.classList.remove('active');
+              });
+              tocElem.querySelector('a[href="#' + id + '"]') ? 
+              tocElem.querySelector('a[href="#' + id + '"]').classList.add('active') : null;
+            }
+          }
+        }) : null;
+        setNavbarBG(st);
+      }
+      lastScrollTop = st <= 0 ? 0 : st;
+    };
+    
+
+
+
+    
+    var mobileSearchInputElem = document.querySelector('#search-mobile');
+    var mobileSearchClassElem = document.querySelector('.mobile-search');
+    var mobileSearchBtnElem = document.querySelector('#mobileSearchBtn');
+    var mobileSearchCloseBtnElem = document.querySelector('#search-mobile-close');
+    var mobileSearchContainer = document.querySelector('#search-mobile-container');
+    var mobileSearchResultsElem = document.querySelector('#search-mobile-results');
+    var htmlElem = document.querySelector('html');
+
+    if (mobileSearchClassElem) {
+      mobileSearchClassElem.style.display = 'none';
+    }
+
+    mobileSearchBtnElem ? 
+    mobileSearchBtnElem.addEventListener('click', function () {
+      if (mobileSearchContainer) {
+        mobileSearchContainer.style.display = 'block';
+      }
+
+      if (mobileSearchInputElem) {
+        mobileSearchInputElem.focus();
+      }
+
+      if (htmlElem) {
+        htmlElem.style.overflowY = 'hidden';
+      }
+    }) : null;
+
+    mobileSearchCloseBtnElem ? 
+    mobileSearchCloseBtnElem.addEventListener('click', function() {
+      if (mobileSearchContainer) {
+        mobileSearchContainer.style.display = 'none';
+      }
+
+      if (mobileSearchInputElem) {
+        mobileSearchInputElem.value = '';
+      }
+      
+      if (mobileSearchResultsElem) {
+        while (mobileSearchResultsElem.firstChild) {
+          mobileSearchResultsElem.removeChild(mobileSearchResultsElem.firstChild);
+        }
+      }
+
+      if (htmlElem) {
+        htmlElem.style.overflowY = 'visible';
+      }
+    }) : null;
+
+    mobileSearchInputElem ? 
+    mobileSearchInputElem.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        if (mobileSearchContainer) {
+          mobileSearchContainer.style.display = 'none';
+        }
+        
+        if (mobileSearchInputElem) {
+          mobileSearchInputElem.value = '';
+        }
+
+        if (mobileSearchResultsElem) {
+          while (mobileSearchResultsElem.firstChild) {
+            mobileSearchResultsElem.removeChild(mobileSearchResultsElem.firstChild);
+          }
+        }
+        if (htmlElem) {
+          htmlElem.style.overflowY = 'visible';
+        }
+      }
+    }) : null;
+  
+
+
+  
+    var localTheme = localStorage.getItem('theme');
+    var rootEleme = document.getElementById('root');
+    var selectThemeElem = document.querySelectorAll('.select-theme');
+    var selectThemeItemElem = document.querySelectorAll('.select-theme__item');
+    
+    if (localTheme) {
+      selectThemeItemElem ? 
+      selectThemeItemElem.forEach(function (elem) {
+        if (elem.text.trim() === localTheme) {
+          elem.classList.add('is-active');
+        } else {
+          elem.classList.remove('is-active');
+        }
+      }) : null;
+    }
+
+    selectThemeItemElem ? 
+    selectThemeItemElem.forEach(function (v, i) {
+      v.addEventListener('click', function (e) {
+        var selectedThemeVariant = e.target.text.trim();
+        localStorage.setItem('theme', selectedThemeVariant);
+
+        rootEleme.removeAttribute('class');
+        rootEleme.classList.add(`theme__${selectedThemeVariant}`);
+        selectThemeElem.forEach(function(rootElem) {
+          rootElem.querySelectorAll('a').forEach(function (elem) {
+            if (elem.classList) {
+              if (elem.text.trim() === selectedThemeVariant) {
+                if (!elem.classList.contains('is-active')) {
+                  elem.classList.add('is-active');
+                }
+              } else {
+                if (elem.classList.contains('is-active')) {
+                  elem.classList.remove('is-active');
+                }
+              }
+            }
+          });
+        });
+
+        if (window.mermaid) {
+          if (selectedThemeVariant === "dark" || selectedThemeVariant === "hacker") {
+            mermaid.initialize({ theme: 'dark' });
+            location.reload();
+          } else {
+            mermaid.initialize({ theme: 'default' });
+            location.reload();
+          }
+        }
+
+        var utterances = document.querySelector('iframe');
+        if (utterances) {
+          utterances.contentWindow.postMessage({
+            type: 'set-theme',
+            theme: selectedThemeVariant === "dark" || selectedThemeVariant === "hacker" ? 'photon-dark' : selectedThemeVariant === 'kimbie' ? 'github-dark-orange' : 'github-light',
+          }, 'https://utteranc.es');
+        }
+      });
+    }) : null;
+  
+
+
+  
+    
+    var searchURL = JSON.parse("\"https://www.k8sref.io/\"");
+    var searchResults = null;
+    var searchMenu = null;
+    var searchText = null;
+    
+    
+    var enableSearchHighlight = JSON.parse("false");
+    
+    var enableSearch = JSON.parse("false");
+
+    var fuse = null;
+
+    if (enableSearch) {
+      (function initFuse() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', searchURL + "index.json");
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            fuse = new Fuse(JSON.parse(xhr.response.toString('utf-8')), {
+              keys: ['title', 'description', 'content'],
+              includeMatches: enableSearchHighlight,
+              shouldSort: true,
+              threshold: 0.4,
+              location: 0,
+              distance: 100,
+              maxPatternLength: 32,
+              minMatchCharLength: 1,
+            });
+          }
+          else {
+            console.error(`[${xhr.status}]Error:`, xhr.statusText);
+          }
+        };
+        xhr.send();
+      })();
+    }
+    
+    function makeLi(ulElem, obj) {
+      var li = document.createElement('li');
+      li.className = 'search-result__item';
+      
+      var a = document.createElement('a');
+      a.innerHTML = obj.title;
+      a.setAttribute('class', 'search-result__item--title');
+      a.setAttribute('href', obj.permalink);
+
+      var descDiv = document.createElement('div');
+      descDiv.setAttribute('class', 'search-result__item--desc');
+      if (obj.description) {
+        descDiv.innerHTML = obj.description;
+      } else if (obj.content) {
+        descDiv.innerHTML = obj.content.substring(0, 80);
+      }
+      
+      li.appendChild(a);
+      li.appendChild(descDiv);
+      ulElem.appendChild(li);
+    }
+
+    function makeHighlightLi(ulElem, obj) {
+      var li = document.createElement('li');
+      li.className = 'search-result__item';
+      var descDiv = null;
+
+      var a = document.createElement('a');
+      a.innerHTML = obj.item.title;
+      a.setAttribute('class', 'search-result__item--title');
+      a.setAttribute('href', obj.item.uri);
+
+      if (obj.matches && obj.matches.length) {
+        for (var i = 0; i < obj.matches.length; i++) {
+          if ('title' === obj.matches[i].key) {
+            a = document.createElement('a');
+            a.innerHTML = generateHighlightedText(obj.matches[i].value, obj.matches[i].indices);
+            a.setAttribute('class', 'search-result__item--title');
+            a.setAttribute('href', obj.item.uri);
+          }
+          
+          if ('description' === obj.matches[i].key) {
+            descDiv = document.createElement('div');
+            descDiv.setAttribute('class', 'search-result__item--desc');
+            descDiv.innerHTML = generateHighlightedText(obj.item.description, obj.matches[i].indices);
+          } else if ('content' === obj.matches[i].key) {
+            if (!descDiv) {
+              descDiv = document.createElement('div');
+              descDiv.setAttribute('class', 'search-result__item--desc');
+              descDiv.innerHTML = generateHighlightedText(obj.item.content.substring(0, 80), obj.matches[i].indices);
+            }
+          } else {
+            if (obj.item.description) {
+              descDiv = document.createElement('div');
+              descDiv.setAttribute('class', 'search-result__item--desc');
+              descDiv.innerHTML = obj.item.description;
+            } else {
+              descDiv = document.createElement('div');
+              descDiv.setAttribute('class', 'search-result__item--desc');
+              descDiv.innerHTML = obj.item.content.substring(0, 80);
+            }
+          }
+        }
+
+        li.appendChild(a);
+        if (descDiv) {
+          li.appendChild(descDiv);
+        }
+        if (li) {
+          ulElem.appendChild(li);
+        }
+      }
+    }
+
+    function renderSearchResults(searchText, results) {
+      searchResults = document.getElementById('search-results');
+      searchMenu = document.getElementById('search-menu');
+      searchResults.setAttribute('class', 'dd is-active');
+      
+      var ul = document.createElement('ul');
+      ul.setAttribute('class', 'dd-content search-content');
+
+      if (results.length) {
+        results.forEach(function (result) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.setAttribute('href', result.uri);
+          a.setAttribute('class', 'dd-item');
+          a.appendChild(li);
+
+          var titleDiv = document.createElement('div');
+          titleDiv.innerHTML = result.title;
+          titleDiv.setAttribute('class', 'search-result__item--title');
+
+          var descDiv = document.createElement('div');
+          descDiv.setAttribute('class', 'search-result__item--desc');
+          if (result.description) {
+            descDiv.innerHTML = result.description;
+          } else if (result.content) {
+            descDiv.innerHTML = result.content.substring(0, 80);
+          }
+
+          li.appendChild(titleDiv);
+          li.appendChild(descDiv);
+          ul.appendChild(a);
+        });
+      } else {
+        var li = document.createElement('li');
+        li.setAttribute('class', 'dd-item');
+        li.innerText = 'No results found';
+        ul.appendChild(li);
+      }
+
+      while (searchMenu.hasChildNodes()) {
+        searchMenu.removeChild(
+          searchMenu.lastChild
+        );
+      }
+      
+      searchMenu.appendChild(ul);
+    }
+
+    function renderSearchHighlightResults(searchText, results) {
+      searchResults = document.getElementById('search-results');
+      searchMenu = document.getElementById('search-menu');
+      searchResults.setAttribute('class', 'dd is-active');
+
+      var ul = document.createElement('ul');
+      ul.setAttribute('class', 'dd-content search-content');
+
+      if (results.length) {
+        results.forEach(function (result) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          var descDiv = null;
+
+          a.setAttribute('href', result.item.uri);
+          a.setAttribute('class', 'dd-item');
+          a.appendChild(li);
+
+          var titleDiv = document.createElement('div');
+          titleDiv.innerHTML = result.item.title;
+          titleDiv.setAttribute('class', 'search-result__item--title');
+          
+          if (result.matches && result.matches.length) {
+            for (var i = 0; i < result.matches.length; i++) {
+              if ('title' === result.matches[i].key) {
+                titleDiv.innerHTML = generateHighlightedText(result.matches[i].value, result.matches[i].indices);
+              }
+
+              if ('description' === result.matches[i].key) {
+                descDiv = document.createElement('div');
+                descDiv.setAttribute('class', 'search-result__item--desc');
+                descDiv.innerHTML = generateHighlightedText(result.item.description, result.matches[i].indices);
+              } else if ('content' === result.matches[i].key) {
+                if (!descDiv) {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'search-result__item--desc');
+                  descDiv.innerHTML = generateHighlightedText(result.item.content.substring(0, 80), result.matches[i].indices);
+                }
+              } else {
+                if (result.item.description) {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'search-result__item--desc');
+                  descDiv.innerHTML = result.item.description;
+                } else {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'search-result__item--desc');
+                  descDiv.innerHTML = result.item.content.substring(0, 80);
+                }
+              }
+            }
+            
+            li.appendChild(titleDiv);
+            if (descDiv) {
+              li.appendChild(descDiv);
+            }
+            ul.appendChild(a);
+          }
+        });
+      } else {
+        var li = document.createElement('li');
+        li.setAttribute('class', 'dd-item');
+        li.innerText = 'No results found';
+        ul.appendChild(li);
+      }
+
+      while (searchMenu.hasChildNodes()) {
+        searchMenu.removeChild(
+          searchMenu.lastChild
+        );
+      }
+      searchMenu.appendChild(ul);
+    }
+
+    function renderSearchResultsMobile(searchText, results) {
+      searchResults = document.getElementById('search-mobile-results');
+
+      var content = document.createElement('div');
+      content.setAttribute('class', 'mobile-search__content');
+
+      if (results.length > 0) {
+        results.forEach(function (result) {
+          var item = document.createElement('a');
+          item.setAttribute('href', result.uri);
+          item.innerHTML = '<div class="mobile-search__item"><div class="mobile-search__item--title">📄 ' + result.title + '</div><div class="mobile-search__item--desc">' + (result.description ? result.description : result.content) + '</div></div>';
+          content.appendChild(item);
+        });
+      } else {
+        var item = document.createElement('span');
+        content.appendChild(item);
+      }
+
+      let wrap = document.getElementById('search-mobile-results');
+      while (wrap.firstChild) {
+        wrap.removeChild(wrap.firstChild)
+      }
+      searchResults.appendChild(content);      
+    }
+
+    function renderSearchHighlightResultsMobile(searchText, results) {
+      searchResults = document.getElementById('search-mobile-results');
+
+      var ul = document.createElement('div');
+      ul.setAttribute('class', 'mobile-search__content');
+
+      if (results.length) {
+        results.forEach(function (result) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          var descDiv = null;
+
+          a.setAttribute('href', result.item.uri);
+          a.appendChild(li);
+          li.setAttribute('class', 'mobile-search__item');
+
+          var titleDiv = document.createElement('div');
+          titleDiv.innerHTML = result.item.title;
+          titleDiv.setAttribute('class', 'mobile-search__item--title');
+          
+          if (result.matches && result.matches.length) {
+            for (var i = 0; i < result.matches.length; i++) {
+              if ('title' === result.matches[i].key) {
+                titleDiv.innerHTML = generateHighlightedText(result.matches[i].value, result.matches[i].indices);
+              }
+
+              if ('description' === result.matches[i].key) {
+                descDiv = document.createElement('div');
+                descDiv.setAttribute('class', 'mobile-search__item--desc');
+                descDiv.innerHTML = generateHighlightedText(result.item.description, result.matches[i].indices);
+              } else if ('content' === result.matches[i].key) {
+                if (!descDiv) {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'mobile-search__item--desc');
+                  descDiv.innerHTML = generateHighlightedText(result.item.content.substring(0, 150), result.matches[i].indices);
+                }
+              } else {
+                if (result.item.description) {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'mobile-search__item--desc');
+                  descDiv.innerHTML = result.item.description;
+                } else {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'mobile-search__item--desc');
+                  descDiv.innerHTML = result.item.content.substring(0, 150);
+                }
+              }
+            }
+            
+            li.appendChild(titleDiv);
+            if (descDiv) {
+              li.appendChild(descDiv);
+            }
+            ul.appendChild(a);
+          }
+        });
+      } else {
+        var item = document.createElement('span');
+        ul.appendChild(item);
+      }
+
+      let wrap = document.getElementById('search-mobile-results');
+      while (wrap.firstChild) {
+        wrap.removeChild(wrap.firstChild)
+      }
+      searchResults.appendChild(ul);
+    }
+
+    function generateHighlightedText(text, regions) {
+      if (!regions) {
+        return text;
+      }
+
+      var content = '', nextUnhighlightedRegionStartingIndex = 0;
+
+      regions.forEach(function(region) {
+        if (region[0] === region[1]) {
+          return null;
+        }
+        
+        content += '' +
+          text.substring(nextUnhighlightedRegionStartingIndex, region[0]) +
+          '<span class="search__highlight">' +
+            text.substring(region[0], region[1] + 1) +
+          '</span>' +
+        '';
+        nextUnhighlightedRegionStartingIndex = region[1] + 1;
+      });
+
+      content += text.substring(nextUnhighlightedRegionStartingIndex);
+
+      return content;
+    };
+
+    var searchElem = document.getElementById('search');
+    var searchMobile = document.getElementById('search-mobile');
+    var searchResultsContainer = document.getElementById('search-results');
+
+    searchElem ? 
+    searchElem.addEventListener('input', function(e) {
+      if (!e.target.value | window.innerWidth < 770) {
+        searchResultsContainer ? searchResultsContainer.setAttribute('class', 'dd') : null;
+        return null;
+      }
+
+      searchText = e.target.value;
+      var results = fuse.search(e.target.value);
+
+      if (enableSearchHighlight) {
+        renderSearchHighlightResults(searchText, results);
+      } else {
+        renderSearchResults(searchText, results);
+      }
+
+      var dropdownItems = searchResultsContainer.querySelectorAll('.dd-item');
+      dropdownItems ? dropdownItems.forEach(function (item) {
+        item.addEventListener('mousedown', function (e) {
+          console.log('mousedown');
+          e.target.click();
+        });
+      }) : null;
+    }) : null;
+
+    searchElem ? 
+    searchElem.addEventListener('blur', function() {
+      if (window.innerWidth < 770) {
+        return null;
+      }
+      searchResultsContainer ? searchResultsContainer.setAttribute('class', 'dd') : null;
+    }) : null;
+
+    searchElem ? 
+    searchElem.addEventListener('click', function(e) {
+      if (window.innerWidth < 770) {
+        return null;
+      }
+      if (!e.target.value) {
+        searchResultsContainer ? searchResultsContainer.setAttribute('class', 'dd') : null;
+        return null;
+      }
+
+      searchText = e.target.value;
+      var results = fuse.search(e.target.value);
+
+      if (enableSearchHighlight) {
+        renderSearchHighlightResults(searchText, results);
+      } else {
+        renderSearchResults(searchText, results);
+      }
+
+      var dropdownItems = searchResultsContainer.querySelectorAll('.dd-item');
+      dropdownItems ? dropdownItems.forEach(function (item) {
+        item.addEventListener('mousedown', function (e) {
+          console.log('mousedown');
+          e.target.click();
+        });
+      }) : null;
+    }) : null;
+
+    var searchMenuElem = document.getElementById("search-menu");
+    var activeItem = document.querySelector('#search-menu .dd-item.is-active');
+    var activeIndex = null;
+    var items = null;
+    var searchContainerMaxHeight = 350;
+
+    searchElem ? 
+    searchElem.addEventListener('keydown', function(e) {
+      if (window.innerWidth < 770) {
+        return null;
+      }
+
+      var items = document.querySelectorAll('#search-menu .dd-item');
+      
+      if (e.key === 'ArrowDown') {
+        if (activeIndex === null) {
+          activeIndex = 0;
+          items[activeIndex].classList.remove('is-active');
+        } else {
+          items[activeIndex].classList.remove('is-active');
+          activeIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+        }
+        items[activeIndex].classList.add('is-active');
+
+        let overflowedPixel = items[activeIndex].offsetTop + items[activeIndex].clientHeight - searchContainerMaxHeight;
+        if (overflowedPixel > 0) {
+          document.querySelector(".search-content").scrollTop += items[activeIndex].getBoundingClientRect().height;
+        } else if (activeIndex === 0) {
+          document.querySelector(".search-content").scrollTop = 0;
+        }
+      } else if (e.key === 'ArrowUp') {
+        if (activeIndex === null) {
+          activeIndex = items.length - 1;
+          items[activeIndex].classList.remove('is-active');
+        } else {
+          items[activeIndex].classList.remove('is-active');
+          activeIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+        }
+        items[activeIndex].classList.add('is-active');
+        
+        let overflowedPixel = items[activeIndex].offsetTop + items[activeIndex].clientHeight - searchContainerMaxHeight;
+        if (overflowedPixel < 0) {
+          document.querySelector(".search-content").scrollTop -= items[activeIndex].getBoundingClientRect().height;
+        } else {
+          document.querySelector(".search-content").scrollTop = overflowedPixel + items[activeIndex].getBoundingClientRect().height;
+        }
+      } else if (e.key === 'Enter') {
+        var currentItemLink = items[activeIndex].getAttribute('href');
+        if (currentItemLink) {
+          location.href = currentItemLink;
+        }
+      } else if (e.key === 'Escape') {
+        e.target.value = null;
+        if (searchResults) {
+          searchResults.classList.remove('is-active');
+        }
+      }
+    }) : null;
+
+    searchMobile ? 
+    searchMobile.addEventListener('input', function(e) {
+      if (!e.target.value) {
+        let wrap = document.getElementById('search-mobile-results');
+        while (wrap.firstChild) {
+          wrap.removeChild(wrap.firstChild);
+        }
+        return null;
+      }
+
+      searchText = e.target.value;
+      var results = fuse.search(e.target.value);
+      
+      if (enableSearchHighlight) {
+        renderSearchHighlightResultsMobile(searchText, results);
+      } else {
+        renderSearchResultsMobile(searchText, results);
+      }
+
+      var dropdownItems = searchResultsContainer.querySelectorAll('.dd-item');
+      dropdownItems ? dropdownItems.forEach(function (item) {
+        item.addEventListener('mousedown', function (e) {
+          console.log('mousedown');
+          e.target.click();
+        });
+      }) : null;
+    }) : null;
+  
+  }
+</script>
+    
+
+
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    <meta name="description" content="" />
+<meta name="keywords" content="">
+<meta name="created" content="0001-01-01T00:00:00&#43;0000">
+<meta name="modified" content="0001-01-01T00:00:00&#43;0000">
+
+
+<meta property="og:site_name" content="Kubernetes Reference">
+<meta property="og:title" content="Pod (v1)">
+<meta property="og:url" content="https://www.k8sref.io/docs/part1/pod-v1/">
+<meta property="og:type" content="article">
+
+<meta name="generator" content="Hugo 0.68.3" />
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+<link rel="canonical" href="https://www.k8sref.io/docs/part1/pod-v1/">
+<link rel="manifest" href="/manifest.json">
+
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/logo.svg" sizes="any" type="image/svg+xml" />
+
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "headline": "Pod (v1)",
+    "datePublished": "0001-01-01T00:00:00Z",
+    "dateModified": "0001-01-01T00:00:00Z",
+    "url" : "https://www.k8sref.io/docs/part1/pod-v1/",
+    "description": "Pod (v1) Pod core.v1.Pod Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.   apiVersion (string) …",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.k8sref.io"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kubernetes Reference",
+      "url": "https://www.k8sref.io"
+    }
+  }
+</script>
+
+    
+
+</head>
+
+<body id="root" class="theme__light">
+    <script>
+        var localTheme = localStorage.getItem('theme');
+        if (localTheme) {
+            document.getElementById('root').className = `theme__${localTheme}`;
+        }        
+    </script>
+    
+    <div id="zz_container">
+        <div id="myDrawer" class="drawer" style="">
+  <div class="drawer__header">
+    <a href="/" class="drawer__header--text">
+      Kubernetes Reference
+    </a>
+    <div class="grow"></div>
+    <div class="drawer__close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg>
+    </div>
+  </div>
+
+  <div class="drawer__body">
+    <div class="menu">
+  <h6 class="menu__label">
+    
+      Pod (v1)
+    
+  </h6>
+  <ul>
+    
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse active" data-depth="0">
+    Workloads Resources
+    <span class="menu__title--icon down">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list active" data-data=/part1/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/pod-v1/" class="menu__title active" data-depth="0">Pod (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/container-v1/" class="menu__title " data-depth="0">Container (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/ephemeralcontainer-v1/" class="menu__title " data-depth="0">EphemeralContainer (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/replicaset-v1/" class="menu__title " data-depth="0">ReplicaSet (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/deployment-v1/" class="menu__title " data-depth="0">Deployment (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/statefulset-v1/" class="menu__title " data-depth="0">StatefulSet (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/daemonset-v1/" class="menu__title " data-depth="0">DaemonSet (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/replicationcontroller-v1/" class="menu__title " data-depth="0">ReplicationController (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/job-v1/" class="menu__title " data-depth="0">Job (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/cronjob-v1beta1/" class="menu__title " data-depth="0">CronJob (v1beta1)</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse " data-depth="0">
+    Service Resources
+    <span class="menu__title--icon right">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list " data-data=/part2/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part2/service-v1/" class="menu__title " data-depth="0">Service (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part2/endpoints-v1/" class="menu__title " data-depth="0">Endpoints (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part2/endpointslice-v1beta1/" class="menu__title " data-depth="0">EndpointSlice (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part2/ingress-v1beta1/" class="menu__title " data-depth="0">Ingress (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part2/ingressclass-v1beta1/" class="menu__title " data-depth="0">IngressClass (v1beta1)</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse " data-depth="0">
+    Config and Storage Resources
+    <span class="menu__title--icon right">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list " data-data=/part3/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/configmap-v1/" class="menu__title " data-depth="0">ConfigMap (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/secret-v1/" class="menu__title " data-depth="0">Secret (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/volume-v1/" class="menu__title " data-depth="0">Volume (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/persistentvolumeclaim-v1/" class="menu__title " data-depth="0">PersistentVolumeClaim (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/storageclass-v1/" class="menu__title " data-depth="0">StorageClass (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/volumeattachment-v1/" class="menu__title " data-depth="0">VolumeAttachment (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/csidriver-v1/" class="menu__title " data-depth="0">CSIDriver (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/csinode-v1/" class="menu__title " data-depth="0">CSINode (v1)</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse " data-depth="0">
+    Metadata Resources
+    <span class="menu__title--icon right">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list " data-data=/part4/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/controllerrevision-v1/" class="menu__title " data-depth="0">ControllerRevision (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/customresourcedefinition-v1/" class="menu__title " data-depth="0">CustomResourceDefinition (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/event-v1/" class="menu__title " data-depth="0">Event (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/limitrange-v1/" class="menu__title " data-depth="0">LimitRange (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/horizontalpodautoscaler-v1/" class="menu__title " data-depth="0">HorizontalPodAutoscaler (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/mutatingwebhookconfiguration-v1/" class="menu__title " data-depth="0">MutatingWebhookConfiguration (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/validatingwebhookconfiguration-v1/" class="menu__title " data-depth="0">ValidatingWebhookConfiguration (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/podtemplate-v1/" class="menu__title " data-depth="0">PodTemplate (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/priorityclass-v1/" class="menu__title " data-depth="0">PriorityClass (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/poddisruptionbudget-v1beta1/" class="menu__title " data-depth="0">PodDisruptionBudget (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/podsecuritypolicy-v1beta1/" class="menu__title " data-depth="0">PodSecurityPolicy (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/podpreset-v1alpha1/" class="menu__title " data-depth="0">PodPreset (v1alpha1)</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse " data-depth="0">
+    Cluster Resources
+    <span class="menu__title--icon right">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list " data-data=/part5/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/node-v1/" class="menu__title " data-depth="0">Node (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/namespace-v1/" class="menu__title " data-depth="0">Namespace (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/serviceaccount-v1/" class="menu__title " data-depth="0">ServiceAccount (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/clusterrole-v1/" class="menu__title " data-depth="0">ClusterRole (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/clusterrolebinding-v1/" class="menu__title " data-depth="0">ClusterRoleBinding (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/role-v1/" class="menu__title " data-depth="0">Role (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/rolebinding-v1/" class="menu__title " data-depth="0">RoleBinding (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/persistentvolume-v1/" class="menu__title " data-depth="0">PersistentVolume (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/resourcequota-v1/" class="menu__title " data-depth="0">ResourceQuota (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/networkpolicy-v1/" class="menu__title " data-depth="0">NetworkPolicy (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/localsubjectaccessreview-v1/" class="menu__title " data-depth="0">LocalSubjectAccessReview (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/selfsubjectaccessreview-v1/" class="menu__title " data-depth="0">SelfSubjectAccessReview (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/selfsubjectrulesreview-v1/" class="menu__title " data-depth="0">SelfSubjectRulesReview (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/subjectaccessreview-v1/" class="menu__title " data-depth="0">SubjectAccessReview (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/tokenrequest-v1/" class="menu__title " data-depth="0">TokenRequest (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/tokenreview-v1/" class="menu__title " data-depth="0">TokenReview (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/apiservice-v1/" class="menu__title " data-depth="0">APIService (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/componentstatus-v1/" class="menu__title " data-depth="0">ComponentStatus (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/lease-v1/" class="menu__title " data-depth="0">Lease (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/runtimeclass-v1beta1/" class="menu__title " data-depth="0">RuntimeClass (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/certificatesigningrequest-v1beta1/" class="menu__title " data-depth="0">CertificateSigningRequest (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/auditsink-v1alpha1/" class="menu__title " data-depth="0">AuditSink (v1alpha1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/flowschema-v1alpha1/" class="menu__title " data-depth="0">FlowSchema (v1alpha1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/prioritylevelconfiguration-v1alpha1/" class="menu__title " data-depth="0">PriorityLevelConfiguration (v1alpha1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/binding-v1/" class="menu__title " data-depth="0">Binding (v1)</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse " data-depth="0">
+    Common Definitions
+    <span class="menu__title--icon right">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list " data-data=/part6/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part6/jsonschemaprops/" class="menu__title " data-depth="0">JSONSchemaProps</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part6/affinity/" class="menu__title " data-depth="0">Affinity</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part6/types/" class="menu__title " data-depth="0">Types</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part6/references-and-selectors/" class="menu__title " data-depth="0">References and Selectors</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part6/meta/" class="menu__title " data-depth="0">Meta</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+  </ul>
+</div>
+
+
+
+<script>
+  var menuTitle = document.querySelectorAll('.menu__title');
+  var modal = document.getElementById("myModal");
+  var drawer = document.getElementById('myDrawer');
+
+  var closeDrawer = function () {
+    setTimeout(function () {
+      modal.style.opacity = 0;
+      drawer.style.left = '-100%';
+      modal.style.left = '-100%';
+    }, 250);
+  }
+
+  menuTitle ? 
+  menuTitle.forEach(function(elem) {
+    elem.onclick = function() {
+      closeDrawer();
+      localStorage.setItem('isDrawerOpen', 'false');
+    }
+  }) : null;
+</script>
+  </div>
+</div>
+<div id="myModal" class="modal" style=""></div>
+
+<script>
+  var isDrawerOpen = localStorage.getItem('isDrawerOpen');
+  var modal = document.getElementById("myModal");
+  var drawer = document.getElementById('myDrawer');
+  
+  
+  var languagedir = JSON.parse("\"ltr\"");
+
+  var openDrawer = function () {
+    modal.style.opacity = 1;
+    
+    if (languagedir === "rtl") {
+      modal.style.right = 0;
+      drawer.style.right = 0;
+    } else {
+      modal.style.left = 0;
+      drawer.style.left = 0;
+    }
+  }
+
+  if (isDrawerOpen && isDrawerOpen === 'true') {
+    openDrawer();
+  }
+</script>
+        
+<nav class="nav">
+  <div class="navbar__wrapper" data-bgimg="false">
+    <div class="divider">
+      <div class="navbar lmr">
+        <div id="siteLogo" class="navbar__logo--wrapper">
+  
+    <a href="/" title="" rel="home" class="navbar__logo--link">
+      <img src="/logo.png" alt="Home" class="navbar__logo">
+    </a>
+  
+  
+    <a href="/" title="" rel="home" class="navbar__logo--text-link">
+      <h6 class="navbar__logo--text" data-bgimg="false">Kubernetes Reference</h6>
+    </a>
+  
+</div>
+        
+        <div class="navbar__menu--wrapper">
+          <div id="tabletLogo" class="hide">
+  
+  <a href="/" rel="home" class="navbar__logo--link">
+    <img src="/logo.png" alt="Home" class="navbar__logo">
+  </a>
+  
+</div>
+          <div id="mobileLogo" class="hide">
+  <a href="#" class="navbar__logo--link">
+    <div class="navbar__icons--icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z"/></svg>
+    </div>
+  </a>
+</div>
+          <span id="navMenuMobile" class="hide">
+  <button id="navCollapseBtn" class="navbar__dropdown--title" aria-label="Section Menu" data-dir="ltr">
+    
+      docs
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M8.12 9.29L12 13.17l3.88-3.88c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0L6.7 10.7c-.39-.39-.39-1.02 0-1.41.39-.38 1.03-.39 1.42 0z"/></svg>
+  </button>
+  <div class="navbar__collapse" data-open="false">
+  <ul>
+    
+
+  
+  
+  
+  
+  <li class="navbar__menu--mobile-item active">
+    <a href="/docs" class="active">Resources</a>
+  </li>
+
+  </ul>
+</div>
+</span>
+          <ul id="navMenu" class="navbar__menu">
+            
+
+  
+  
+  
+  
+  <li class="navbar__menu--item active">
+    <a href="/docs" data-bgimg="false">Resources</a>
+  </li>
+
+          </ul>
+        </div>
+        <div class="grow"></div>
+        <div id="siteSearch">
+          
+        </div>
+        <div id="mobileSearch" class="hide">
+          
+        </div>
+        <div class="navbar__icons">
+  
+  
+<button id="toggleToDark" class="navbar__icons--icon" aria-label="Toggle to dark mode">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path fill="currentColor" d="M20 15.31L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+</button>
+<button id="toggleToLight" class="navbar__icons--icon" aria-label="Toggle to light mode">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path fill="currentColor" d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg>
+</button>
+<script>
+  var theme = localStorage.getItem('theme');
+  var toggleToLightBtn = document.getElementById('toggleToLight');
+  var toggleToDarkBtn = document.getElementById('toggleToDark');
+
+  if (theme && theme === 'dark') {
+    toggleToLightBtn.className = 'navbar__icons--icon';
+    toggleToDarkBtn.className = 'hide';
+  } else {
+    toggleToLightBtn.className = 'hide';
+    toggleToDarkBtn.className = 'navbar__icons--icon';
+  }
+</script>
+
+  <div class="navbar__icons--icon">
+    <a href="https://github.com/feloy/kubernetes-resources-reference" title="Github repository" aria-label="Github repository" target="_blank" rel="noreferrer">
+    <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path d="M10.9,2.1c-4.6,0.5-8.3,4.2-8.8,8.7c-0.5,4.7,2.2,8.9,6.3,10.5C8.7,21.4,9,21.2,9,20.8v-1.6c0,0-0.4,0.1-0.9,0.1 c-1.4,0-2-1.2-2.1-1.9c-0.1-0.4-0.3-0.7-0.6-1C5.1,16.3,5,16.3,5,16.2C5,16,5.3,16,5.4,16c0.6,0,1.1,0.7,1.3,1c0.5,0.8,1.1,1,1.4,1 c0.4,0,0.7-0.1,0.9-0.2c0.1-0.7,0.4-1.4,1-1.8c-2.3-0.5-4-1.8-4-4c0-1.1,0.5-2.2,1.2-3C7.1,8.8,7,8.3,7,7.6c0-0.4,0-0.9,0.2-1.3 C7.2,6.1,7.4,6,7.5,6c0,0,0.1,0,0.1,0C8.1,6.1,9.1,6.4,10,7.3C10.6,7.1,11.3,7,12,7s1.4,0.1,2,0.3c0.9-0.9,2-1.2,2.5-1.3 c0,0,0.1,0,0.1,0c0.2,0,0.3,0.1,0.4,0.3C17,6.7,17,7.2,17,7.6c0,0.8-0.1,1.2-0.2,1.4c0.7,0.8,1.2,1.8,1.2,3c0,2.2-1.7,3.5-4,4 c0.6,0.5,1,1.4,1,2.3v2.6c0,0.3,0.3,0.6,0.7,0.5c3.7-1.5,6.3-5.1,6.3-9.3C22,6.1,16.9,1.4,10.9,2.1z"/></svg>
+    </a>
+  </div>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  var siteLogo = document.getElementById('siteLogo');
+  var tabletLogo = document.getElementById('tabletLogo');
+  var mobileLogo = document.getElementById('mobileLogo');
+  var navMenu = document.getElementById('navMenu');
+  var navMenuMobile = document.getElementById('navMenuMobile');
+  var siteSearch = document.getElementById('siteSearch');
+  var mobileSearch = document.getElementById('mobileSearch');
+  
+  enquire.register("screen and (max-width:1280px)", {
+    match: function () {
+      siteLogo.className = 'navbar__logo--wrapper';
+      tabletLogo.className = 'hide';
+      mobileLogo.className = 'hide';
+      navMenu.className = 'navbar__menu';
+      navMenuMobile.className = 'hide';
+      siteSearch.className = '';
+      mobileSearch.className = 'hide';
+    },
+    unmatch: function () {
+      siteLogo.className = 'navbar__logo--wrapper';
+      tabletLogo.className = 'hide';
+      mobileLogo.className = 'hide';
+      navMenu.className = 'navbar__menu';
+      navMenuMobile.className = 'hide';
+      siteSearch.className = '';
+      mobileSearch.className = 'hide';
+    },
+  }).register("screen and (max-width:960px)", {
+    match: function () {
+      siteLogo.className = 'hide';
+      tabletLogo.className = '';
+      mobileLogo.className = 'hide';
+      navMenu.className = 'navbar__menu';
+      navMenuMobile.className = 'hide';
+      siteSearch.className = 'hide';
+      mobileSearch.className = 'navbar__icons--icon';
+    },
+    unmatch: function () {
+      siteLogo.className = 'navbar__logo--wrapper';
+      tabletLogo.className = 'hide';
+      mobileLogo.className = 'hide';
+      navMenu.className = 'navbar__menu';
+      navMenuMobile.className = 'hide';
+      siteSearch.className = '';
+      mobileSearch.className = 'hide';
+    },
+  }).register("screen and (max-width:600px)", {
+    match: function () {
+      siteLogo.className = 'hide';
+      tabletLogo.className = 'hide';
+      mobileLogo.className = '';
+      navMenu.className = 'hide';
+      navMenuMobile.className = '';
+      siteSearch.className = 'hide';
+      mobileSearch.className = 'navbar__icons--icon';
+    },
+    unmatch: function () {
+      siteLogo.className = 'hide';
+      tabletLogo.className = '';
+      mobileLogo.className = 'hide';
+      navMenu.className = 'navbar__menu';
+      navMenuMobile.className = 'hide';
+      siteSearch.className = 'hide';
+      mobileSearch.className = 'navbar__icons--icon';
+    },
+  });
+</script>
+
+        
+ <div class="top">
+  <div class="header__wrapper bgcolor__header">
+    <div class="divider">
+      <div class="lmr">
+        <h2 class="title">Pod (v1)</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="header__wrapper bgcolor__breadcrumb">
+    <div class="divider">
+      <div class="lmr flexbox">
+        
+          <nav class="breadcrumb" aria-label="breadcrumbs" data-is-blog="false">
+  <ol>
+    
+  
+  
+  
+  
+  
+  
+  
+  <li >
+    
+      <a href="https://www.k8sref.io/" class="capitalize">Kubernetes Reference</a>
+    
+  </li>
+  
+  
+  <li >
+    
+      <a href="https://www.k8sref.io/docs/" class="capitalize">Resources</a>
+    
+  </li>
+  
+  
+  <li >
+    
+      <a href="https://www.k8sref.io/docs/part1/" class="capitalize">Workloads Resources</a>
+    
+  </li>
+  
+  
+  <li  class="is-active" >
+    
+      <span>Pod (v1)</span>
+    
+  </li>
+  
+  </ol>
+  
+</nav>
+        
+        <div class="grow"></div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+  <div class="mid">
+  <div class="divider">
+    
+    <nav id="single-menu" class="l" data-dir="ltr">
+      
+        <div class="menu">
+  <h6 class="menu__label">
+    
+      Pod (v1)
+    
+  </h6>
+  <ul>
+    
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse active" data-depth="0">
+    Workloads Resources
+    <span class="menu__title--icon down">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list active" data-data=/part1/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/pod-v1/" class="menu__title active" data-depth="0">Pod (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/container-v1/" class="menu__title " data-depth="0">Container (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/ephemeralcontainer-v1/" class="menu__title " data-depth="0">EphemeralContainer (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/replicaset-v1/" class="menu__title " data-depth="0">ReplicaSet (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/deployment-v1/" class="menu__title " data-depth="0">Deployment (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/statefulset-v1/" class="menu__title " data-depth="0">StatefulSet (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/daemonset-v1/" class="menu__title " data-depth="0">DaemonSet (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/replicationcontroller-v1/" class="menu__title " data-depth="0">ReplicationController (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/job-v1/" class="menu__title " data-depth="0">Job (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part1/cronjob-v1beta1/" class="menu__title " data-depth="0">CronJob (v1beta1)</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse " data-depth="0">
+    Service Resources
+    <span class="menu__title--icon right">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list " data-data=/part2/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part2/service-v1/" class="menu__title " data-depth="0">Service (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part2/endpoints-v1/" class="menu__title " data-depth="0">Endpoints (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part2/endpointslice-v1beta1/" class="menu__title " data-depth="0">EndpointSlice (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part2/ingress-v1beta1/" class="menu__title " data-depth="0">Ingress (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part2/ingressclass-v1beta1/" class="menu__title " data-depth="0">IngressClass (v1beta1)</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse " data-depth="0">
+    Config and Storage Resources
+    <span class="menu__title--icon right">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list " data-data=/part3/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/configmap-v1/" class="menu__title " data-depth="0">ConfigMap (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/secret-v1/" class="menu__title " data-depth="0">Secret (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/volume-v1/" class="menu__title " data-depth="0">Volume (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/persistentvolumeclaim-v1/" class="menu__title " data-depth="0">PersistentVolumeClaim (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/storageclass-v1/" class="menu__title " data-depth="0">StorageClass (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/volumeattachment-v1/" class="menu__title " data-depth="0">VolumeAttachment (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/csidriver-v1/" class="menu__title " data-depth="0">CSIDriver (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part3/csinode-v1/" class="menu__title " data-depth="0">CSINode (v1)</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse " data-depth="0">
+    Metadata Resources
+    <span class="menu__title--icon right">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list " data-data=/part4/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/controllerrevision-v1/" class="menu__title " data-depth="0">ControllerRevision (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/customresourcedefinition-v1/" class="menu__title " data-depth="0">CustomResourceDefinition (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/event-v1/" class="menu__title " data-depth="0">Event (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/limitrange-v1/" class="menu__title " data-depth="0">LimitRange (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/horizontalpodautoscaler-v1/" class="menu__title " data-depth="0">HorizontalPodAutoscaler (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/mutatingwebhookconfiguration-v1/" class="menu__title " data-depth="0">MutatingWebhookConfiguration (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/validatingwebhookconfiguration-v1/" class="menu__title " data-depth="0">ValidatingWebhookConfiguration (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/podtemplate-v1/" class="menu__title " data-depth="0">PodTemplate (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/priorityclass-v1/" class="menu__title " data-depth="0">PriorityClass (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/poddisruptionbudget-v1beta1/" class="menu__title " data-depth="0">PodDisruptionBudget (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/podsecuritypolicy-v1beta1/" class="menu__title " data-depth="0">PodSecurityPolicy (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part4/podpreset-v1alpha1/" class="menu__title " data-depth="0">PodPreset (v1alpha1)</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse " data-depth="0">
+    Cluster Resources
+    <span class="menu__title--icon right">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list " data-data=/part5/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/node-v1/" class="menu__title " data-depth="0">Node (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/namespace-v1/" class="menu__title " data-depth="0">Namespace (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/serviceaccount-v1/" class="menu__title " data-depth="0">ServiceAccount (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/clusterrole-v1/" class="menu__title " data-depth="0">ClusterRole (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/clusterrolebinding-v1/" class="menu__title " data-depth="0">ClusterRoleBinding (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/role-v1/" class="menu__title " data-depth="0">Role (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/rolebinding-v1/" class="menu__title " data-depth="0">RoleBinding (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/persistentvolume-v1/" class="menu__title " data-depth="0">PersistentVolume (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/resourcequota-v1/" class="menu__title " data-depth="0">ResourceQuota (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/networkpolicy-v1/" class="menu__title " data-depth="0">NetworkPolicy (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/localsubjectaccessreview-v1/" class="menu__title " data-depth="0">LocalSubjectAccessReview (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/selfsubjectaccessreview-v1/" class="menu__title " data-depth="0">SelfSubjectAccessReview (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/selfsubjectrulesreview-v1/" class="menu__title " data-depth="0">SelfSubjectRulesReview (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/subjectaccessreview-v1/" class="menu__title " data-depth="0">SubjectAccessReview (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/tokenrequest-v1/" class="menu__title " data-depth="0">TokenRequest (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/tokenreview-v1/" class="menu__title " data-depth="0">TokenReview (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/apiservice-v1/" class="menu__title " data-depth="0">APIService (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/componentstatus-v1/" class="menu__title " data-depth="0">ComponentStatus (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/lease-v1/" class="menu__title " data-depth="0">Lease (v1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/runtimeclass-v1beta1/" class="menu__title " data-depth="0">RuntimeClass (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/certificatesigningrequest-v1beta1/" class="menu__title " data-depth="0">CertificateSigningRequest (v1beta1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/auditsink-v1alpha1/" class="menu__title " data-depth="0">AuditSink (v1alpha1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/flowschema-v1alpha1/" class="menu__title " data-depth="0">FlowSchema (v1alpha1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/prioritylevelconfiguration-v1alpha1/" class="menu__title " data-depth="0">PriorityLevelConfiguration (v1alpha1)</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part5/binding-v1/" class="menu__title " data-depth="0">Binding (v1)</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+      
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  <span class="menu__title--collapse " data-depth="0">
+    Common Definitions
+    <span class="menu__title--icon right">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"/></svg>
+      
+    </span>
+  </span>
+  <ul class="menu__list " data-data=/part6/ data-link=https://www.k8sref.io/docs/part1/pod-v1/>
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part6/jsonschemaprops/" class="menu__title " data-depth="0">JSONSchemaProps</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part6/affinity/" class="menu__title " data-depth="0">Affinity</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part6/types/" class="menu__title " data-depth="0">Types</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part6/references-and-selectors/" class="menu__title " data-depth="0">References and Selectors</a>
+        </li>
+      
+    
+      
+        
+        
+        <li>
+          <a href="https://www.k8sref.io/docs/part6/meta/" class="menu__title " data-depth="0">Meta</a>
+        </li>
+      
+    
+  </ul>
+  
+
+    
+  </ul>
+</div>
+
+
+      
+    </nav>
+
+    <article id="list-main" class="m" data-dir="ltr">
+      
+  <label class="switch">
+    <input id="toggle-sidebar" aria-label="Toggle Sidebar Visibility" type="checkbox" checked />
+    <span class="slider">
+      <span class="slider__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
+      </span>
+      <span class="slider__icon hide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
+      </span>
+    </span>
+  </label>
+
+      <div class="single" data-display="block">
+  
+
+  <article class="single__contents" data-dir="ltr">
+    <h2 id="pod-v1">Pod (v1)</h2>
+<h3 id="pod">Pod</h3>
+<p><code>core.v1.Pod</code></p>
+<p>Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.</p>
+<ul>
+<li>
+<p><strong>apiVersion</strong> (string)<br />
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: <a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources">https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</a></p>
+</li>
+<li>
+<p><strong>kind</strong> (string)<br />
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: <a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds">https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</a></p>
+</li>
+<li>
+<p><strong>metadata</strong> (ObjectMeta)<br />
+Standard object's metadata. More info: <a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata">https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata</a></p>
+</li>
+<li>
+<p><strong>spec</strong> (PodSpec)<br />
+Specification of the desired behavior of the pod. More info: <a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status">https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status</a></p>
+</li>
+<li>
+<p><strong>status</strong> (PodStatus)<br />
+Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: <a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status">https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status</a></p>
+</li>
+</ul>
+<h3 id="podspec">PodSpec</h3>
+<p><code>core.v1.PodSpec</code></p>
+<p>PodSpec is a description of a pod.</p>
+<h4 id="containers">Containers</h4>
+<ul>
+<li>
+<p><strong>containers</strong> ([]Container)<br />
+List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.</p>
+</li>
+<li>
+<p><strong>initContainers</strong> ([]Container)<br />
+List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</a></p>
+</li>
+<li>
+<p><strong>imagePullSecrets</strong> ([]LocalObjectReference)<br />
+ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: <a href="https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod">https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod</a></p>
+<ul>
+<li><strong>imagePullSecrets.name</strong> (string)<br />
+Name of the referent. More info: <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names">https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names</a></li>
+</ul>
+</li>
+<li>
+<p><strong>enableServiceLinks</strong> (boolean)<br />
+EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.</p>
+</li>
+</ul>
+<h4 id="volumes">Volumes</h4>
+<ul>
+<li><strong>volumes</strong> ([]Volume)<br />
+List of volumes that can be mounted by containers belonging to the pod. More info: <a href="https://kubernetes.io/docs/concepts/storage/volumes">https://kubernetes.io/docs/concepts/storage/volumes</a></li>
+</ul>
+<h4 id="scheduling">Scheduling</h4>
+<ul>
+<li>
+<p><strong>nodeSelector</strong> (object)<br />
+NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: <a href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/">https://kubernetes.io/docs/concepts/configuration/assign-pod-node/</a></p>
+</li>
+<li>
+<p><strong>nodeName</strong> (string)<br />
+NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.</p>
+</li>
+<li>
+<p><strong>affinity</strong> (Affinity)<br />
+If specified, the pod's scheduling constraints</p>
+<ul>
+<li>
+<p><strong>affinity.nodeAffinity</strong> (NodeAffinity)<br />
+Describes node affinity scheduling rules for the pod.</p>
+</li>
+<li>
+<p><strong>affinity.podAffinity</strong> (PodAffinity)<br />
+Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).</p>
+</li>
+<li>
+<p><strong>affinity.podAntiAffinity</strong> (PodAntiAffinity)<br />
+Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>tolerations</strong> ([]Toleration)<br />
+If specified, the pod's tolerations.</p>
+<ul>
+<li>
+<p><strong>tolerations.effect</strong> (string)<br />
+Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.</p>
+</li>
+<li>
+<p><strong>tolerations.key</strong> (string)<br />
+Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.</p>
+</li>
+<li>
+<p><strong>tolerations.operator</strong> (string)<br />
+Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.</p>
+</li>
+<li>
+<p><strong>tolerations.tolerationSeconds</strong> (integer)<br />
+TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.</p>
+</li>
+<li>
+<p><strong>tolerations.value</strong> (string)<br />
+Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>schedulerName</strong> (string)<br />
+If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.</p>
+</li>
+<li>
+<p><strong>runtimeClassName</strong> (string)<br />
+RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the &quot;legacy&quot; RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: <a href="https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md">https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md</a> This is a beta feature as of Kubernetes v1.14.</p>
+</li>
+<li>
+<p><strong>priorityClassName</strong> (string)<br />
+If specified, indicates the pod's priority. &quot;system-node-critical&quot; and &quot;system-cluster-critical&quot; are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.</p>
+</li>
+<li>
+<p><strong>priority</strong> (integer)<br />
+The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.</p>
+</li>
+</ul>
+<h4 id="lifecycle">Lifecycle</h4>
+<ul>
+<li>
+<p><strong>restartPolicy</strong> (string)<br />
+Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy">https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy</a></p>
+</li>
+<li>
+<p><strong>terminationGracePeriodSeconds</strong> (integer)<br />
+Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.</p>
+</li>
+<li>
+<p><strong>activeDeadlineSeconds</strong> (integer)<br />
+Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.</p>
+</li>
+<li>
+<p><strong>readinessGates</strong> ([]PodReadinessGate)<br />
+If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to &quot;True&quot; More info: <a href="https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md">https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md</a></p>
+<ul>
+<li><strong>readinessGates.conditionType</strong> (string)<br />
+ConditionType refers to a condition in the pod's condition list with matching type.</li>
+</ul>
+</li>
+</ul>
+<h4 id="hostname-and-name-resolution">Hostname and Name resolution</h4>
+<ul>
+<li>
+<p><strong>hostname</strong> (string)<br />
+Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.</p>
+</li>
+<li>
+<p><strong>subdomain</strong> (string)<br />
+If specified, the fully qualified Pod hostname will be &quot;&lt;hostname&gt;.&lt;subdomain&gt;.&lt;pod namespace&gt;.svc.&lt;cluster domain&gt;&quot;. If not specified, the pod will not have a domainname at all.</p>
+</li>
+<li>
+<p><strong>hostAliases</strong> ([]HostAlias)<br />
+HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.</p>
+<ul>
+<li>
+<p><strong>hostAliases.hostnames</strong> ([]string)<br />
+Hostnames for the above IP address.</p>
+</li>
+<li>
+<p><strong>hostAliases.ip</strong> (string)<br />
+IP address of the host file entry.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>dnsConfig</strong> (PodDNSConfig)<br />
+Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.</p>
+<ul>
+<li>
+<p><strong>dnsConfig.nameservers</strong> ([]string)<br />
+A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.</p>
+</li>
+<li>
+<p><strong>dnsConfig.options</strong> ([]PodDNSConfigOption)<br />
+A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy.</p>
+</li>
+<li>
+<p><strong>dnsConfig.options.name</strong> (string)<br />
+Required.</p>
+</li>
+<li>
+<p><strong>dnsConfig.options.value</strong> (string)</p>
+</li>
+<li>
+<p><strong>dnsConfig.searches</strong> ([]string)<br />
+A list of DNS search domains for host-name lookup. This will be appended to the base search paths generated from DNSPolicy. Duplicated search paths will be removed.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>dnsPolicy</strong> (string)<br />
+Set DNS policy for the pod. Defaults to &quot;ClusterFirst&quot;. Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.</p>
+</li>
+</ul>
+<h4 id="hosts-namespaces">Hosts namespaces</h4>
+<ul>
+<li>
+<p><strong>hostNetwork</strong> (boolean)<br />
+Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.</p>
+</li>
+<li>
+<p><strong>hostPID</strong> (boolean)<br />
+Use the host's pid namespace. Optional: Default to false.</p>
+</li>
+<li>
+<p><strong>hostIPC</strong> (boolean)<br />
+Use the host's ipc namespace. Optional: Default to false.</p>
+</li>
+<li>
+<p><strong>shareProcessNamespace</strong> (boolean)<br />
+Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.</p>
+</li>
+</ul>
+<h4 id="service-account">Service account</h4>
+<ul>
+<li>
+<p><strong>serviceAccountName</strong> (string)<br />
+ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/">https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/</a></p>
+</li>
+<li>
+<p><strong>automountServiceAccountToken</strong> (boolean)<br />
+AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.</p>
+</li>
+</ul>
+<h4 id="security-context">Security context</h4>
+<ul>
+<li>
+<p><strong>securityContext</strong> (PodSecurityContext)<br />
+SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.</p>
+<ul>
+<li>
+<p><strong>securityContext.fsGroup</strong> (integer)<br />
+A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:</p>
+<ol>
+<li>The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw&mdash;-</li>
+</ol>
+<p>If unset, the Kubelet will not modify the ownership and permissions of any volume.</p>
+</li>
+<li>
+<p><strong>securityContext.fsGroupChangePolicy</strong> (string)<br />
+fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not specified defaults to &quot;Always&quot;.</p>
+</li>
+<li>
+<p><strong>securityContext.runAsGroup</strong> (integer)<br />
+The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.</p>
+</li>
+<li>
+<p><strong>securityContext.runAsNonRoot</strong> (boolean)<br />
+Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p>
+</li>
+<li>
+<p><strong>securityContext.runAsUser</strong> (integer)<br />
+The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.</p>
+</li>
+<li>
+<p><strong>securityContext.seLinuxOptions</strong> (SELinuxOptions)<br />
+The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.</p>
+</li>
+<li>
+<p><strong>securityContext.seLinuxOptions.level</strong> (string)<br />
+Level is SELinux level label that applies to the container.</p>
+</li>
+<li>
+<p><strong>securityContext.seLinuxOptions.role</strong> (string)<br />
+Role is a SELinux role label that applies to the container.</p>
+</li>
+<li>
+<p><strong>securityContext.seLinuxOptions.type</strong> (string)<br />
+Type is a SELinux type label that applies to the container.</p>
+</li>
+<li>
+<p><strong>securityContext.seLinuxOptions.user</strong> (string)<br />
+User is a SELinux user label that applies to the container.</p>
+</li>
+<li>
+<p><strong>securityContext.supplementalGroups</strong> ([]integer)<br />
+A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.</p>
+</li>
+<li>
+<p><strong>securityContext.sysctls</strong> ([]Sysctl)<br />
+Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.</p>
+</li>
+<li>
+<p><strong>securityContext.sysctls.name</strong> (string)<br />
+Name of a property to set</p>
+</li>
+<li>
+<p><strong>securityContext.sysctls.value</strong> (string)<br />
+Value of a property to set</p>
+</li>
+<li>
+<p><strong>securityContext.windowsOptions</strong> (WindowsSecurityContextOptions)<br />
+The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p>
+</li>
+<li>
+<p><strong>securityContext.windowsOptions.gmsaCredentialSpec</strong> (string)<br />
+GMSACredentialSpec is where the GMSA admission webhook (<a href="https://github.com/kubernetes-sigs/windows-gmsa">https://github.com/kubernetes-sigs/windows-gmsa</a>) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.</p>
+</li>
+<li>
+<p><strong>securityContext.windowsOptions.gmsaCredentialSpecName</strong> (string)<br />
+GMSACredentialSpecName is the name of the GMSA credential spec to use.</p>
+</li>
+<li>
+<p><strong>securityContext.windowsOptions.runAsUserName</strong> (string)<br />
+The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="alpha-level">Alpha level</h4>
+<ul>
+<li>
+<p><strong>ephemeralContainers</strong> ([]EphemeralContainer)<br />
+List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is alpha-level and is only honored by servers that enable the EphemeralContainers feature.</p>
+</li>
+<li>
+<p><strong>overhead</strong> (object)<br />
+Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: <a href="https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md">https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md</a> This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.</p>
+</li>
+<li>
+<p><strong>preemptionPolicy</strong> (string)<br />
+PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.</p>
+</li>
+<li>
+<p><strong>topologySpreadConstraints</strong> ([]TopologySpreadConstraint)<br />
+TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.</p>
+<ul>
+<li>
+<p><strong>topologySpreadConstraints.labelSelector</strong> (LabelSelector)<br />
+LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.</p>
+</li>
+<li>
+<p><strong>topologySpreadConstraints.maxSkew</strong> (integer)<br />
+MaxSkew describes the degree to which pods may be unevenly distributed. It's the maximum permitted difference between the number of matching pods in any two topology domains of a given topology type. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. It's a required field. Default value is 1 and 0 is not allowed.</p>
+</li>
+<li>
+<p><strong>topologySpreadConstraints.topologyKey</strong> (string)<br />
+TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each &lt;key, value&gt; as a &quot;bucket&quot;, and try to put balanced number of pods into each bucket. It's a required field.</p>
+</li>
+<li>
+<p><strong>topologySpreadConstraints.whenUnsatisfiable</strong> (string)<br />
+WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it - ScheduleAnyway tells the scheduler to still schedule it It's considered as &quot;Unsatisfiable&quot; if and only if placing incoming pod on any topology violates &quot;MaxSkew&quot;. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it <em>more</em> imbalanced. It's a required field.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="deprecated">Deprecated</h4>
+<ul>
+<li><strong>serviceAccount</strong> (string)<br />
+DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.</li>
+</ul>
+<h3 id="podstatus">PodStatus</h3>
+<p><code>core.v1.PodStatus</code></p>
+<p>PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.</p>
+<ul>
+<li>
+<p><strong>nominatedNodeName</strong> (string)<br />
+nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.</p>
+</li>
+<li>
+<p><strong>hostIP</strong> (string)<br />
+IP address of the host to which the pod is assigned. Empty if not yet scheduled.</p>
+</li>
+<li>
+<p><strong>startTime</strong> (Time)<br />
+RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.</p>
+</li>
+<li>
+<p><strong>phase</strong> (string)<br />
+The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:</p>
+<p>Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.</p>
+<p>More info: <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase">https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase</a></p>
+</li>
+<li>
+<p><strong>message</strong> (string)<br />
+A human readable message indicating details about why the pod is in this condition.</p>
+</li>
+<li>
+<p><strong>reason</strong> (string)<br />
+A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'</p>
+</li>
+<li>
+<p><strong>podIP</strong> (string)<br />
+IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.</p>
+</li>
+<li>
+<p><strong>podIPs</strong> ([]PodIP)<br />
+podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.</p>
+<ul>
+<li><strong>podIPs.ip</strong> (string)<br />
+ip is an IP address (IPv4 or IPv6) assigned to the pod</li>
+</ul>
+</li>
+<li>
+<p><strong>conditions</strong> ([]PodCondition)<br />
+Current service state of pod. More info: <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions">https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</a></p>
+<ul>
+<li>
+<p><strong>conditions.lastProbeTime</strong> (Time)<br />
+Last time we probed the condition.</p>
+</li>
+<li>
+<p><strong>conditions.lastTransitionTime</strong> (Time)<br />
+Last time the condition transitioned from one status to another.</p>
+</li>
+<li>
+<p><strong>conditions.message</strong> (string)<br />
+Human-readable message indicating details about last transition.</p>
+</li>
+<li>
+<p><strong>conditions.reason</strong> (string)<br />
+Unique, one-word, CamelCase reason for the condition's last transition.</p>
+</li>
+<li>
+<p><strong>conditions.status</strong> (string)<br />
+Status is the status of the condition. Can be True, False, Unknown. More info: <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions">https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</a></p>
+</li>
+<li>
+<p><strong>conditions.type</strong> (string)<br />
+Type is the type of the condition. More info: <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions">https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>qosClass</strong> (string)<br />
+The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: <a href="https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md">https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md</a></p>
+</li>
+<li>
+<p><strong>initContainerStatuses</strong> ([]ContainerStatus)<br />
+The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status">https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status</a></p>
+</li>
+<li>
+<p><strong>containerStatuses</strong> ([]ContainerStatus)<br />
+The list has one entry per container in the manifest. Each entry is currently the output of <code>docker inspect</code>. More info: <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status">https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status</a></p>
+</li>
+<li>
+<p><strong>ephemeralContainerStatuses</strong> ([]ContainerStatus)<br />
+Status for any ephemeral containers that have run in this pod. This field is alpha-level and is only populated by servers that enable the EphemeralContainers feature.</p>
+</li>
+</ul>
+<h3 id="podlist">PodList</h3>
+<p><code>core.v1.PodList</code></p>
+<p>PodList is a list of Pods.</p>
+<ul>
+<li>
+<p><strong>apiVersion</strong> (string)<br />
+APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: <a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources">https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources</a></p>
+</li>
+<li>
+<p><strong>kind</strong> (string)<br />
+Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: <a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds">https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</a></p>
+</li>
+<li>
+<p><strong>metadata</strong> (ListMeta)<br />
+Standard list metadata. More info: <a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds">https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</a></p>
+</li>
+<li>
+<p><strong>items</strong> ([]Pod)<br />
+List of pods. More info: <a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md">https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md</a></p>
+</li>
+</ul>
+
+  </article>
+</div>
+      
+<div class="grow"></div>
+<nav class="pagination-single">
+  
+    
+    <div class="grow"></div>
+    
+      <a href="https://www.k8sref.io/docs/part1/container-v1/" title="Container (v1)" class="pagination-single__right">
+        <div class="pagination-single__left-title">Container (v1)</div>
+        <div class="pagination-single__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
+        </div>
+      </a>
+    
+  
+</nav>
+
+
+      
+    </article>
+    
+    <section id="list-side" class="r" data-dir="ltr">
+      
+        <div class="toc">
+  <h6 class="toc__label">What&#39;s on this Page</h6>
+  <div class="toc__body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pod-v1">Pod (v1)</a>
+      <ul>
+        <li><a href="#pod">Pod</a></li>
+        <li><a href="#podspec">PodSpec</a>
+          <ul>
+            <li><a href="#containers">Containers</a></li>
+            <li><a href="#volumes">Volumes</a></li>
+            <li><a href="#scheduling">Scheduling</a></li>
+            <li><a href="#lifecycle">Lifecycle</a></li>
+            <li><a href="#hostname-and-name-resolution">Hostname and Name resolution</a></li>
+            <li><a href="#hosts-namespaces">Hosts namespaces</a></li>
+            <li><a href="#service-account">Service account</a></li>
+            <li><a href="#security-context">Security context</a></li>
+            <li><a href="#alpha-level">Alpha level</a></li>
+            <li><a href="#deprecated">Deprecated</a></li>
+          </ul>
+        </li>
+        <li><a href="#podstatus">PodStatus</a></li>
+        <li><a href="#podlist">PodList</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+      
+    </section>
+
+  </div>
+</div>
+
+
+
+
+
+<script defer src="/js/helper/getParents.min.js"></script>
+
+<script defer src="/js/helper/closest.min.js"></script>
+
+<script defer src="/js/helper/prev.min.js"></script>
+
+<script defer src="/js/helper/prop.min.js"></script>
+
+<script defer src="/js/helper/fadeinout.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    'use strict';
+    
+    
+    var tables = document.querySelectorAll('.single__contents > table');
+    for (let i = 0; i < tables.length; i++) {
+      var table = tables[i];
+      var wrapper = document.createElement('div');
+      wrapper.className = 'table-wrapper';
+      table.parentElement.replaceChild(wrapper, table);
+      wrapper.appendChild(table);
+    }
+    
+
+    
+    
+    
+    var lib = JSON.parse("null");
+
+    if (lib && lib.includes('mermaid')) {
+      var themeVariant = localStorage.getItem('theme') || 'light';
+
+      if (themeVariant === "dark") {
+        mermaid.initialize({ theme: 'dark' });
+      } else {
+        mermaid.initialize({ theme: 'default' });
+      }
+      
+      var mermaids = [];
+      [].push.apply(mermaids, document.getElementsByClassName('language-mermaid'));
+      mermaids.forEach(function(elem) {
+        var elemParentNode = elem.parentNode;
+
+        if (elemParentNode !== document.body) {
+          elemParentNode.parentNode.insertBefore(elem, elemParentNode);
+          elemParentNode.parentNode.removeChild(elemParentNode);
+        }
+
+        var newElemWrapper = document.createElement('div');
+        newElemWrapper.classList.add('mermaid');
+        newElemWrapper.innerHTML = elem.innerHTML;
+        elem.replaceWith(newElemWrapper);
+      });
+    }
+    
+    
+
+    
+    if (lib && lib.includes('katex')) {
+      var mathElements = document.getElementsByClassName('math');
+      var options = {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false }
+        ],
+      };
+
+      renderMathInElement(document.querySelector('.single__contents'), options);
+    }
+    
+
+
+    
+    if (lib && lib.includes('flowchartjs')) {
+      
+      var options = JSON.parse("{\"arrow-end\":\"block\",\"element-color\":\"black\",\"fill\":\"white\",\"flowstate\":{\"approved\":{\"fill\":\"#58C4A3\",\"font-size\":12,\"no-text\":\"n/a\",\"yes-text\":\"APPROVED\"},\"current\":{\"fill\":\"yellow\",\"font-color\":\"red\",\"font-weight\":\"bold\"},\"future\":{\"fill\":\"#FFFF99\"},\"invalid\":{\"fill\":\"#444444\"},\"past\":{\"fill\":\"#CCCCCC\",\"font-size\":12},\"rejected\":{\"fill\":\"#C45879\",\"font-size\":12,\"no-text\":\"REJECTED\",\"yes-text\":\"n/a\"},\"request\":{\"fill\":\"blue\"}},\"font-color\":\"black\",\"font-size\":14,\"line-color\":\"black\",\"line-length\":50,\"line-width\":3,\"no-text\":\"no\",\"scale\":1,\"symbols\":{\"end\":{\"class\":\"end-element\"},\"start\":{\"element-color\":\"green\",\"fill\":\"yellow\",\"font-color\":\"red\"}},\"text-margin\":10,\"x\":0,\"y\":0,\"yes-text\":\"yes\"}");
+      var jsonContent = null;
+
+      var flowchartPrefix = "language-flowchart";
+      var index = 0;
+      Array.prototype.forEach.call(document.querySelectorAll("[class^=" + flowchartPrefix + "]"), function(x){
+          x.style.display = 'none'
+          x.parentNode.style.backgroundColor = "transparent"
+          jsonContent = x.innerText;
+
+          var node0 = document.createElement('div');
+          node0.id = 'flowchart' + index;
+          x.parentNode.insertBefore(node0, x);
+
+          var diagram = flowchart.parse(jsonContent);
+          diagram.drawSVG("flowchart"+index, options);
+
+          index +=1;
+      });      
+    }
+    
+
+
+    
+    if (lib && lib.includes('chart')) {
+      var borderColor = "#666";
+      var bgColor = "#ddd";
+      var borderWidth = 2;
+
+      Chart.defaults.global.elements.rectangle.borderWidth = borderWidth;
+      Chart.defaults.global.elements.rectangle.borderColor = borderColor;
+      Chart.defaults.global.elements.rectangle.backgroundColor = bgColor;
+
+      Chart.defaults.global.elements.line.borderWidth = borderWidth;
+      Chart.defaults.global.elements.line.borderColor = borderColor;
+      Chart.defaults.global.elements.line.backgroundColor = bgColor;
+
+      Chart.defaults.global.elements.point.borderWidth = borderWidth;
+      Chart.defaults.global.elements.point.borderColor = borderColor;
+      Chart.defaults.global.elements.point.backgroundColor = bgColor;
+
+      var chartPrefix = "language-chart";
+      var index = 0;
+      var jsonContent = null;
+
+      Array.prototype.forEach.call(document.querySelectorAll("[class^=" + chartPrefix + "]"), function (x) {
+        x.style.display = 'none'
+        x.parentNode.style.backgroundColor = "transparent"
+        jsonContent = x.innerText;
+        var node0 = document.createElement('canvas');
+        var source = null;
+        node0.height = 200;
+        node0.style.height = 200;
+        node0.id = 'myChart' + index;
+        source = JSON.parse(jsonContent);
+        x.parentNode.insertBefore(node0, x);
+        var ctx = document.getElementById('myChart' + index).getContext('2d');
+        var myChart = new Chart(ctx, source);
+        index += 1;
+      });            
+    }
+    
+
+
+    
+    if (lib && lib.includes('viz')) {
+      var vizPrefix = "language-viz-";
+      Array.prototype.forEach.call(document.querySelectorAll("[class^=" + vizPrefix + "]"), function (x) {
+        x.style.display = 'none'
+        x.parentNode.style.backgroundColor = "transparent"
+        var engine;
+        x.getAttribute("class").split(" ").forEach(function (cls) {
+          if (cls.startsWith(vizPrefix)) {
+            engine = cls.substr(vizPrefix.length);
+          }
+        });
+        var viz = new Viz();
+        viz.renderSVGElement(x.innerText, { engine: engine })
+          .then(function (element) {
+            element.style.width = "100%";
+            x.parentNode.insertBefore(element, x);
+          })
+      });
+    }
+    
+    
+  });
+</script>
+<script>
+  var listSide = document.getElementById('list-side');
+  var listMain = document.getElementById('list-main');
+  var singleMenu = document.getElementById('single-menu');
+
+  enquire.register("screen and (max-width:1280px)", {
+    match: function () {
+      listSide.className = 'r';
+      listMain.className = 'm';
+      singleMenu.className = 'l';
+    },
+    unmatch: function () {
+      listSide.className = 'r';
+      listMain.className = 'm';
+      singleMenu.className = 'l';
+    },
+  }).register("screen and (max-width:960px)", {
+    match: function () {
+      listSide.className = 'hide';
+      listMain.className = 'mr';
+      singleMenu.className = 'l';
+    },
+    unmatch: function () {
+      listSide.className = 'r';
+      listMain.className = 'm';
+      singleMenu.className = 'l';
+    },
+  }).register("screen and (max-width:600px)", {
+    match: function () {
+      listSide.className = 'hide';
+      listMain.className = 'lmr';
+      singleMenu.className = 'hide';
+    },
+    unmatch: function () {
+      listSide.className = 'hide';
+      listMain.className = 'mr';
+      singleMenu.className = 'l';
+      
+    },
+  });
+</script>
+
+        
+<div class="bot">
+  <footer class="footer">
+    <div class="divider">
+      <div class="lmr">
+        
+          <p class="caption">
+            © 2020 The Kubernetes Authors
+          </p>
+          
+              <p class="caption">Powered by <a href="https://gohugo.io/" rel="noreferrer">Hugo</a> and the <a href="https://github.com/zzossig/hugo-theme-zdoc" rel="noreferrer">zDoc theme</a></p>
+          
+        
+      </div>
+    </div>
+  </footer>
+</div>
+
+    </div>
+
+</body>
+
+</html>
