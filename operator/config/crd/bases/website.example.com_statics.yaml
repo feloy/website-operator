@@ -34,10 +34,27 @@ spec:
         spec:
           description: StaticSpec defines the desired state of Static
           properties:
-            foo:
-              description: Foo is an example field of Static. Edit Static_types.go
-                to remove/update
+            diskSize:
+              description: DiskSize indicates the amount of disk space to reserve
+                to store assets for each instance
               type: string
+            maxReplicas:
+              description: MaxReplicas indicates the maximal number of instances to
+                deploy
+              type: integer
+            minReplicas:
+              description: MinReplicas indicates the minimal number of instances to
+                deploy
+              type: integer
+            source:
+              description: Source indicates the source of the assets to serve, in
+                the form `gs://bucket-name/path`
+              type: string
+          required:
+          - diskSize
+          - maxReplicas
+          - minReplicas
+          - source
           type: object
         status:
           description: StaticStatus defines the observed state of Static

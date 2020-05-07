@@ -25,17 +25,21 @@ import (
 
 // StaticSpec defines the desired state of Static
 type StaticSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// DiskSize indicates the amount of disk space to reserve to store assets for each instance
+	DiskSize string `json:"diskSize"`
 
-	// Foo is an example field of Static. Edit Static_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Source indicates the source of the assets to serve, in the form `gs://bucket-name/path`
+	Source string `json:"source"`
+
+	// MinReplicas indicates the minimal number of instances to deploy
+	MinReplicas int `json:"minReplicas"`
+
+	// MaxReplicas indicates the maximal number of instances to deploy
+	MaxReplicas int `json:"maxReplicas"`
 }
 
 // StaticStatus defines the observed state of Static
 type StaticStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
 }
 
 // +kubebuilder:object:root=true

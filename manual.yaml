@@ -29,10 +29,10 @@ spec:
         command:
         - "bash"
         - "-c"
-        - "gsutil cp -R $(SOURCE) /mnt/"
+        - "gsutil cp -R $(SOURCE)/* /mnt/"
         env:
         - name: SOURCE
-          value: gs://website-operator/public/*
+          value: gs://website-operator/public
         volumeMounts:
         - mountPath: /mnt
           name: static-files

@@ -18,8 +18,10 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/go-logr/logr"
+	"github.com/labstack/gommon/log"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -38,10 +40,19 @@ type StaticReconciler struct {
 // +kubebuilder:rbac:groups=website.example.com,resources=statics/status,verbs=get;update;patch
 
 func (r *StaticReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
-	_ = context.Background()
+	ctx := context.Background()
 	_ = r.Log.WithValues("static", req.NamespacedName)
 
-	// your logic here
+	static := new(websitev1alpha1.Static)
+
+	if err := r.Get(ctx, req.NamespacedName, static); err != nil {
+		// we'll ignore not-found errors, since they can't be fixed by an immediate
+		// requeue (we'll need to wait for a new notification), and we can get them
+		// on deleted requests.
+		err = client.IgnoreNotFound(err)
+		return ctrl.Result{}, err
+	}
+	log.Info(fmt.Sprintf("static: %+v", static.Spec))
 
 	return ctrl.Result{}, nil
 }

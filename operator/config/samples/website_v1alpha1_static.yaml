@@ -3,5 +3,7 @@ kind: Static
 metadata:
   name: static-sample
 spec:
-  # Add fields here
-  foo: bar
+  diskSize: 20M
+  source: gs://website-operator/public
+  minReplicas: 1
+  maxReplicas: 4
