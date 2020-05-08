@@ -169,3 +169,39 @@ Build and deploy the new version:
 ```shell
 $ IMG=eu.gcr.io/$PROJECT/operator:2 make docker-build docker-push deploy
 ```
+
+### Implement the operations
+
+> See operator/controllers/static_controller.go (func Reconcile)
+
+### Add rights
+
+> See operator/controllers/static_controller.go (tags before func Reconcile)
+
+Allow to read/write deployments:
+
+```go
+// +kubebuilder:rbac:groups=apps,\
+   resources=deployments,\
+   verbs=get;list;watch;create;update;patch;delete
+```
+
+When a deployment is modified by another user:
+
+- Watch Deployments:
+
+```go
+func (r *StaticReconciler) SetupWithManager(mgr ctrl.Manager) error {
+	return ctrl.NewControllerManagedBy(mgr).
+		For(&websitev1alpha1.Static{}).
+		Owns(&apps.Deployment{}).
+		Complete(r)
+}
+```
+
+- Compare current deployment with specified one
+
+> See operator/controllers/static_controller.go (func Reconcile)
+
+reflect.DeepEqual won't work because API server will add some default non-zero values to the created object.
+It is necessary to only compare the fields set by the operator => use equality.Semantic.DeepDerivative

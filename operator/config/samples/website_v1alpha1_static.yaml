@@ -3,7 +3,7 @@ kind: Static
 metadata:
   name: static-sample
 spec:
-  diskSize: 20M
+  diskSize: 20Mi
   source: gs://website-operator/public
   minReplicas: 1
   maxReplicas: 4

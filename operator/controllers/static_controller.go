@@ -21,7 +21,7 @@ import (
 	"fmt"
 
 	"github.com/go-logr/logr"
-	"github.com/labstack/gommon/log"
+	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -38,10 +38,11 @@ type StaticReconciler struct {
 
 // +kubebuilder:rbac:groups=website.example.com,resources=statics,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=website.example.com,resources=statics/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 
 func (r *StaticReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	ctx := context.Background()
-	_ = r.Log.WithValues("static", req.NamespacedName)
+	log := r.Log.WithValues("static", req.NamespacedName)
 
 	static := new(websitev1alpha1.Static)
 
@@ -54,11 +55,16 @@ func (r *StaticReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	}
 	log.Info(fmt.Sprintf("static: %+v", static.Spec))
 
+	if err := r.applyDeployment(ctx, log, static); err != nil {
+		return ctrl.Result{}, err
+	}
+
 	return ctrl.Result{}, nil
 }
 
 func (r *StaticReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&websitev1alpha1.Static{}).
+		Owns(&appsv1.Deployment{}).
 		Complete(r)
 }

@@ -22,7 +22,7 @@ spec:
       volumes:
       - name: static-files
         emptyDir:
-          sizeLimit: 20M
+          sizeLimit: 20Mi
       initContainers:
       - name: copy-static-files
         image: gcr.io/cloud-builders/gcloud

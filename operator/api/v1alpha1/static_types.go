@@ -17,6 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -26,7 +27,7 @@ import (
 // StaticSpec defines the desired state of Static
 type StaticSpec struct {
 	// DiskSize indicates the amount of disk space to reserve to store assets for each instance
-	DiskSize string `json:"diskSize"`
+	DiskSize resource.Quantity `json:"diskSize"`
 
 	// Source indicates the source of the assets to serve, in the form `gs://bucket-name/path`
 	Source string `json:"source"`
