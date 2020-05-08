@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 
 	websitev1alpha1 "example.com/website/v1alpha1/api/v1alpha1"
 	"github.com/go-logr/logr"
@@ -24,6 +25,16 @@ func (r *StaticReconciler) applyService(ctx context.Context, log logr.Logger, st
 	err := r.Get(ctx, types.NamespacedName{Name: expected.ObjectMeta.Name, Namespace: expected.ObjectMeta.Namespace}, found)
 	if err == nil {
 		// Service exists in cluster
+
+		// Check status
+		if len(found.Status.LoadBalancer.Ingress) > 0 && found.Status.LoadBalancer.Ingress[0].IP != static.Status.ExternalIP {
+			log.Info(fmt.Sprintf("New external IP: %s", found.Status.LoadBalancer.Ingress[0].IP))
+			static.Status.ExternalIP = found.Status.LoadBalancer.Ingress[0].IP
+			err = r.Status().Update(ctx, static)
+			if err != nil {
+				return err
+			}
+		}
 
 		expected.Spec.Ports[0].NodePort = found.Spec.Ports[0].NodePort // Do not check nodeport
 		if !equality.Semantic.DeepDerivative(expected.Spec, found.Spec) {

@@ -41,9 +41,12 @@ type StaticSpec struct {
 
 // StaticStatus defines the observed state of Static
 type StaticStatus struct {
+	// EXternalIP is the external IP of the load balancer
+	ExternalIP string `json:"externalIP"`
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
 
 // Static is the Schema for the statics API
 type Static struct {
