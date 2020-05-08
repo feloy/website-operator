@@ -39,6 +39,7 @@ type StaticReconciler struct {
 // +kubebuilder:rbac:groups=website.example.com,resources=statics,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=website.example.com,resources=statics/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=core,resources=services,verbs=get;list;watch;create;update;patch;delete
 
 func (r *StaticReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	ctx := context.Background()
@@ -56,6 +57,10 @@ func (r *StaticReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	log.Info(fmt.Sprintf("static: %+v", static.Spec))
 
 	if err := r.applyDeployment(ctx, log, static); err != nil {
+		return ctrl.Result{}, err
+	}
+
+	if err := r.applyService(ctx, log, static); err != nil {
 		return ctrl.Result{}, err
 	}
 
