@@ -8,6 +8,22 @@ metadata:
   creationTimestamp: null
   name: statics.website.example.com
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.source
+    name: Source
+    type: string
+  - JSONPath: .spec.minReplicas
+    name: Min Replicas
+    type: string
+  - JSONPath: .spec.maxReplicas
+    name: Max Replicas
+    type: string
+  - JSONPath: .status.replicas
+    name: Replicas
+    type: string
+  - JSONPath: .status.externalIP
+    name: External IP
+    type: string
   group: website.example.com
   names:
     kind: Static
@@ -66,8 +82,10 @@ spec:
             externalIP:
               description: EXternalIP is the external IP of the load balancer
               type: string
-          required:
-          - externalIP
+            replicas:
+              description: Replicas is the number of replicated pods
+              format: int32
+              type: integer
           type: object
       type: object
   version: v1alpha1

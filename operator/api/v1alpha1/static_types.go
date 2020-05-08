@@ -42,11 +42,19 @@ type StaticSpec struct {
 // StaticStatus defines the observed state of Static
 type StaticStatus struct {
 	// EXternalIP is the external IP of the load balancer
-	ExternalIP string `json:"externalIP"`
+	ExternalIP string `json:"externalIP,omitempty"`
+
+	// Replicas is the number of replicated pods
+	Replicas int32 `json:"replicas,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:printcolumn:name="Source",type=string,JSONPath=`.spec.source`
+// +kubebuilder:printcolumn:name="Min Replicas",type=string,JSONPath=`.spec.minReplicas`
+// +kubebuilder:printcolumn:name="Max Replicas",type=string,JSONPath=`.spec.maxReplicas`
+// +kubebuilder:printcolumn:name="Replicas",type=string,JSONPath=`.status.replicas`
+// +kubebuilder:printcolumn:name="External IP",type=string,JSONPath=`.status.externalIP`
 
 // Static is the Schema for the statics API
 type Static struct {

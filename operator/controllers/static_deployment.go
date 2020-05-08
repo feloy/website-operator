@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 
 	websitev1alpha1 "example.com/website/v1alpha1/api/v1alpha1"
 	"github.com/go-logr/logr"
@@ -25,6 +26,16 @@ func (r *StaticReconciler) applyDeployment(ctx context.Context, log logr.Logger,
 	err := r.Get(ctx, types.NamespacedName{Name: expected.ObjectMeta.Name, Namespace: expected.ObjectMeta.Namespace}, found)
 	if err == nil {
 		// Deployment exists in cluster
+
+		// Check status
+		if found.Status.Replicas != static.Status.Replicas {
+			log.Info(fmt.Sprintf("New Replicas: %d", found.Status.Replicas))
+			static.Status.Replicas = found.Status.Replicas
+			err = r.Status().Update(ctx, static)
+			if err != nil {
+				return err
+			}
+		}
 
 		if !equality.Semantic.DeepDerivative(expected.Spec, found.Spec) {
 
@@ -71,7 +82,6 @@ func (r *StaticReconciler) createDeployment(static *websitev1alpha1.Static) *app
 			Namespace: static.Namespace,
 		},
 		Spec: appsv1.DeploymentSpec{
-			Replicas: func(i int32) *int32 { return &i }(1),
 			Selector: &metav1.LabelSelector{
 				MatchLabels: labels,
 			},
