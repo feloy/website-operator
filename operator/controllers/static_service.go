@@ -31,7 +31,8 @@ func (r *StaticReconciler) applyService(ctx context.Context, log logr.Logger, st
 			log.Info("Service found but different than expected => Update service")
 
 			controllerutil.SetControllerReference(static, expected, r.Scheme)
-			err = r.Update(ctx, expected)
+			r.updateService(static, found)
+			err = r.Update(ctx, found)
 			if err != nil {
 				return err
 			}
@@ -60,7 +61,7 @@ func (r *StaticReconciler) applyService(ctx context.Context, log logr.Logger, st
 func (r *StaticReconciler) createService(static *websitev1alpha1.Static) *corev1.Service {
 	name := static.Name + "-service"
 
-	return &corev1.Service{
+	result := &corev1.Service{
 		ObjectMeta: metav1.ObjectMeta{
 
 			Name:      name,
@@ -68,17 +69,23 @@ func (r *StaticReconciler) createService(static *websitev1alpha1.Static) *corev1
 		},
 
 		Spec: corev1.ServiceSpec{
-			Type: corev1.ServiceTypeLoadBalancer,
-			Selector: map[string]string{
-				"app": static.Name + "-deployment",
-			},
 			Ports: []corev1.ServicePort{
-				{
-					Port:       80,
-					TargetPort: intstr.FromInt(80),
-					Protocol:   corev1.ProtocolTCP,
-				},
+				{},
 			},
 		},
+	}
+	r.updateService(static, result)
+	return result
+}
+
+func (r *StaticReconciler) updateService(static *websitev1alpha1.Static, service *corev1.Service) {
+	service.Spec.Type = corev1.ServiceTypeLoadBalancer
+	service.Spec.Selector = map[string]string{
+		"app": static.Name + "-deployment",
+	}
+	if len(service.Spec.Ports) > 0 {
+		service.Spec.Ports[0].Port = 80
+		service.Spec.Ports[0].TargetPort = intstr.FromInt(80)
+		service.Spec.Ports[0].Protocol = corev1.ProtocolTCP
 	}
 }

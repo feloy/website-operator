@@ -41,10 +41,12 @@ spec:
             maxReplicas:
               description: MaxReplicas indicates the maximal number of instances to
                 deploy
+              format: int32
               type: integer
             minReplicas:
               description: MinReplicas indicates the minimal number of instances to
                 deploy
+              format: int32
               type: integer
             source:
               description: Source indicates the source of the assets to serve, in

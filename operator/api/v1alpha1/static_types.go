@@ -33,10 +33,10 @@ type StaticSpec struct {
 	Source string `json:"source"`
 
 	// MinReplicas indicates the minimal number of instances to deploy
-	MinReplicas int `json:"minReplicas"`
+	MinReplicas int32 `json:"minReplicas"`
 
 	// MaxReplicas indicates the maximal number of instances to deploy
-	MaxReplicas int `json:"maxReplicas"`
+	MaxReplicas int32 `json:"maxReplicas"`
 }
 
 // StaticStatus defines the observed state of Static
