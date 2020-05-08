@@ -205,3 +205,52 @@ func (r *StaticReconciler) SetupWithManager(mgr ctrl.Manager) error {
 
 reflect.DeepEqual won't work because API server will add some default non-zero values to the created object.
 It is necessary to only compare the fields set by the operator => use equality.Semantic.DeepDerivative
+
+### Status
+
+Declare the structure of the status:
+
+```go
+// StaticStatus defines the observed state of Static
+type StaticStatus struct {
+	// EXternalIP is the external IP of the load balancer
+	ExternalIP string `json:"externalIP,omitempty"`
+
+	// Replicas is the number of replicated pods
+	Replicas int32 `json:"replicas,omitempty"`
+}
+```
+
+Declare the `status` subresource:
+
+```go
+// +kubebuilder:subresource:status
+```
+
+Check the status from created and watched objects:
+
+```go
+if len(found.Status.LoadBalancer.Ingress) > 0 && found.Status.LoadBalancer.Ingress[0].IP != static.Status.ExternalIP {
+  log.Info(fmt.Sprintf("New external IP: %s", found.Status.LoadBalancer.Ingress[0].IP))
+  static.Status.ExternalIP = found.Status.LoadBalancer.Ingress[0].IP
+  err = r.Status().Update(ctx, static)
+  if err != nil {
+    return err
+  }
+}
+
+```
+
+### Printer columns
+
+```go
+// +kubebuilder:printcolumn:name="Source",type=string,JSONPath=`.spec.source`
+// +kubebuilder:printcolumn:name="Min Replicas",type=string,JSONPath=`.spec.minReplicas`
+// +kubebuilder:printcolumn:name="Max Replicas",type=string,JSONPath=`.spec.maxReplicas`
+// +kubebuilder:printcolumn:name="Replicas",type=string,JSONPath=`.status.replicas`
+// +kubebuilder:printcolumn:name="External IP",type=string,JSONPath=`.status.externalIP`
+```
+
+### Tests
+
+### Versioning
