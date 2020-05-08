@@ -22,6 +22,8 @@ import (
 
 	"github.com/go-logr/logr"
 	appsv1 "k8s.io/api/apps/v1"
+	autoscalingv1 "k8s.io/api/autoscaling/v1"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -40,6 +42,7 @@ type StaticReconciler struct {
 // +kubebuilder:rbac:groups=website.example.com,resources=statics/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=core,resources=services,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=autoscaling,resources=horizontalpodautoscaler,verbs=get;list;watch;create;update;patch;delete
 
 func (r *StaticReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	ctx := context.Background()
@@ -64,6 +67,10 @@ func (r *StaticReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		return ctrl.Result{}, err
 	}
 
+	if err := r.applyHPA(ctx, log, static); err != nil {
+		return ctrl.Result{}, err
+	}
+
 	return ctrl.Result{}, nil
 }
 
@@ -71,5 +78,7 @@ func (r *StaticReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&websitev1alpha1.Static{}).
 		Owns(&appsv1.Deployment{}).
+		Owns(&corev1.Service{}).
+		Owns(&autoscalingv1.HorizontalPodAutoscaler{}).
 		Complete(r)
 }
