@@ -206,6 +206,29 @@ func (r *StaticReconciler) SetupWithManager(mgr ctrl.Manager) error {
 reflect.DeepEqual won't work because API server will add some default non-zero values to the created object.
 It is necessary to only compare the fields set by the operator => use equality.Semantic.DeepDerivative
 
+### Owner Reference
+
+Set the custom resource as owner of the created objects:
+
+```go
+controllerutil.SetControllerReference(static, expected, r.Scheme)
+```
+
+The plugin `kubectl tree` dispays the owned object of the custom resource:
+
+```shell
+$ kubectl tree statics static-sample
+NAMESPACE  NAME                                                 READY  REASON  AGE
+default    Static/static-sample                                 -              36m
+default    ├─Deployment/static-sample-deployment                -              36m
+default    │ └─ReplicaSet/static-sample-deployment-5b7d44c6c8   -              36m
+default    │   └─Pod/static-sample-deployment-5b7d44c6c8-czrvt  True           36m
+default    ├─HorizontalPodAutoscaler/static-sample-hpa          -              36m
+default    └─Service/static-sample-service                      -              36m
+```
+
+Thanks to the garbage collector, the created resources will be automatically deleted when the custom resource is deleted.
+
 ### Status
 
 Declare the structure of the status:
