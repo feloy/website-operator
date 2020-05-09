@@ -5,4 +5,8 @@ kind: Kustomization
 images:
 - name: controller
   newName: eu.gcr.io/website-operator/operator
-  newTag: "2"
+  newTag: "22"
+configMapGenerator:
+- envs:
+  - config.env
+  name: config

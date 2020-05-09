@@ -20,6 +20,7 @@ import (
 	"flag"
 	"os"
 
+	"github.com/kelseyhightower/envconfig"
 	"k8s.io/apimachinery/pkg/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
@@ -66,10 +67,17 @@ func main() {
 		os.Exit(1)
 	}
 
+	var staticConfig controllers.StaticConfiguration
+	if err = envconfig.Process("STATIC", &staticConfig); err != nil {
+		setupLog.Error(err, "unable to get configuration")
+		os.Exit(1)
+	}
+
 	if err = (&controllers.StaticReconciler{
 		Client: mgr.GetClient(),
 		Log:    ctrl.Log.WithName("controllers").WithName("Static"),
 		Scheme: mgr.GetScheme(),
+		Config: &staticConfig,
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Static")
 		os.Exit(1)

@@ -36,6 +36,7 @@ type StaticReconciler struct {
 	client.Client
 	Log    logr.Logger
 	Scheme *runtime.Scheme
+	Config *StaticConfiguration
 }
 
 // +kubebuilder:rbac:groups=website.example.com,resources=statics,verbs=get;list;watch;create;update;patch;delete

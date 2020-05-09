@@ -130,12 +130,12 @@ func (r *StaticReconciler) createDeployment(static *websitev1alpha1.Static) *app
 							Image: "nginx",
 							Resources: corev1.ResourceRequirements{
 								Requests: corev1.ResourceList{
-									"memory": *resource.NewQuantity(32*1024*1024, resource.BinarySI),
-									"cpu":    *resource.NewMilliQuantity(100, resource.DecimalSI),
+									"memory": *resource.NewQuantity(r.Config.MemoryRequestMi*1024*1024, resource.BinarySI),
+									"cpu":    *resource.NewMilliQuantity(r.Config.CpuRequestMilli, resource.DecimalSI),
 								},
 								Limits: corev1.ResourceList{
-									"memory": *resource.NewQuantity(128*1024*1024, resource.BinarySI),
-									"cpu":    *resource.NewMilliQuantity(500, resource.DecimalSI),
+									"memory": *resource.NewQuantity(r.Config.MemoryLimitMi*1024*1024, resource.BinarySI),
+									"cpu":    *resource.NewMilliQuantity(r.Config.CpuLimitMilli, resource.DecimalSI),
 								},
 							},
 							Ports: []corev1.ContainerPort{

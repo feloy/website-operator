@@ -273,6 +273,9 @@ if len(found.Status.LoadBalancer.Ingress) > 0 && found.Status.LoadBalancer.Ingre
 // +kubebuilder:printcolumn:name="Replicas",type=string,JSONPath=`.status.replicas`
 // +kubebuilder:printcolumn:name="External IP",type=string,JSONPath=`.status.externalIP`
 ```
+### Operator configuration
+
+Some fields for creating the deployment, service and hpa are the responsability of the DevOps/SRE team, not of the user creating the custom resource. We place such values in a configmap attached to the pod.
 
 ### Tests
 

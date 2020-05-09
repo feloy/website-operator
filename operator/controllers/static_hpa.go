@@ -67,7 +67,7 @@ func (r *StaticReconciler) createHPA(static *websitev1alpha1.Static) *autoscalin
 		Spec: autoscalingv1.HorizontalPodAutoscalerSpec{
 			MinReplicas:                    &static.Spec.MinReplicas,
 			MaxReplicas:                    static.Spec.MaxReplicas,
-			TargetCPUUtilizationPercentage: func(i int32) *int32 { return &i }(40),
+			TargetCPUUtilizationPercentage: &r.Config.CpuUtilization,
 			ScaleTargetRef: autoscalingv1.CrossVersionObjectReference{
 				Kind:       "Deployment",
 				APIVersion: "apps/v1",
