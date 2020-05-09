@@ -47,8 +47,8 @@ steps:
   name: 'gcr.io/cloud-builders/gke-deploy'
   args:
   - 'apply'
-  - '--cluster=cluster-1'
-  - '--location=europe-west1-c'
+  - '--cluster=${_CLUSTER}'
+  - '--location=${_LOCATION}'
   - '--filename=/mnt/deploy.yaml'
   volumes:
   - name: 'mnt'
