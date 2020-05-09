@@ -5,7 +5,7 @@ steps:
   - 'build'
   - '-t'
   - 'eu.gcr.io/$PROJECT_ID/operator:$BUILD_ID'
-  - '.'
+  - 'operator'
 
 - id: push
   waitFor:
@@ -24,7 +24,7 @@ steps:
   - 'set'
   - 'image'
   - 'controller=eu.gcr.io/$PROJECT_ID/operator:$BUILD_ID'
-  dir: config/manager
+  dir: operator/config/manager
 
 - id: config-build
   waitFor:
@@ -35,6 +35,7 @@ steps:
   - 'config/default'
   - '-o'
   - '/mnt/deploy.yaml'
+  dir: operator
   volumes:
   - name: 'mnt'
     path: '/mnt'
