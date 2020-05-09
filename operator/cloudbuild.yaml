@@ -1,0 +1,54 @@
+steps:
+- id: build
+  name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'build'
+  - '-t'
+  - 'eu.gcr.io/$PROJECT_ID/operator:$BUILD_ID'
+  - '.'
+
+- id: push
+  waitFor:
+  - 'build'
+  name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'push'
+  - 'eu.gcr.io/$PROJECT_ID/operator:$BUILD_ID'
+
+- id: config
+  waitFor:
+  - '-'
+  name: 'eu.gcr.io/$PROJECT_ID/kustomize'
+  args:
+  - 'edit'
+  - 'set'
+  - 'image'
+  - 'controller=eu.gcr.io/$PROJECT_ID/operator:$BUILD_ID'
+  dir: config/manager
+
+- id: config-build
+  waitFor:
+  - 'config'
+  name: 'eu.gcr.io/$PROJECT_ID/kustomize'
+  args:
+  - 'build'
+  - 'config/default'
+  - '-o'
+  - '/mnt/deploy.yaml'
+  volumes:
+  - name: 'mnt'
+    path: '/mnt'
+
+- id: deploy
+  waitFor:
+  - 'config-build'
+  - 'push'
+  name: 'gcr.io/cloud-builders/gke-deploy'
+  args:
+  - 'apply'
+  - '--cluster=cluster-1'
+  - '--location=europe-west1-c'
+  - '--filename=/mnt/deploy.yaml'
+  volumes:
+  - name: 'mnt'
+    path: '/mnt'
