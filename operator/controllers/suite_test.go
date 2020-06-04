@@ -32,6 +32,7 @@ import (
 
 	websitev1alpha1 "example.com/website/v1alpha1/api/v1alpha1"
 	// +kubebuilder:scaffold:imports
+	ctrl "sigs.k8s.io/controller-runtime"
 )
 
 // These tests use Ginkgo (BDD-style Go testing framework). Refer to
@@ -40,6 +41,7 @@ import (
 var cfg *rest.Config
 var k8sClient client.Client
 var testEnv *envtest.Environment
+var k8sManager ctrl.Manager
 
 func TestAPIs(t *testing.T) {
 	RegisterFailHandler(Fail)
@@ -64,6 +66,33 @@ var _ = BeforeSuite(func(done Done) {
 
 	err = websitev1alpha1.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
+
+	// Add controller
+	k8sManager, err = ctrl.NewManager(cfg, ctrl.Options{
+		Scheme: scheme.Scheme,
+	})
+	Expect(err).ToNot(HaveOccurred())
+
+	err = (&StaticReconciler{
+		Client: k8sManager.GetClient(),
+		Log:    ctrl.Log.WithName("controllers").WithName("Static"),
+		Scheme: k8sManager.GetScheme(),
+		Config: &StaticConfiguration{
+			MemoryRequestMi: 32,
+			MemoryLimitMi:   128,
+			CpuRequestMilli: 100,
+			CpuLimitMilli:   500,
+			CpuUtilization:  400,
+		},
+	}).SetupWithManager(k8sManager)
+	Expect(err).ToNot(HaveOccurred())
+
+	go func() {
+		err = k8sManager.Start(ctrl.SetupSignalHandler())
+		Expect(err).ToNot(HaveOccurred())
+	}()
+
+	// End add controller
 
 	// +kubebuilder:scaffold:scheme
 

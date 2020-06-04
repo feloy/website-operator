@@ -85,6 +85,9 @@ func (r *StaticReconciler) createDeployment(static *websitev1alpha1.Static) *app
 			Selector: &metav1.LabelSelector{
 				MatchLabels: labels,
 			},
+			Strategy: appsv1.DeploymentStrategy{
+				Type: appsv1.RollingUpdateDeploymentStrategyType,
+			},
 			Template: corev1.PodTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{
 					Labels: labels,

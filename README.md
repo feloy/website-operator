@@ -192,10 +192,10 @@ When a deployment is modified by another user:
 
 ```go
 func (r *StaticReconciler) SetupWithManager(mgr ctrl.Manager) error {
-	return ctrl.NewControllerManagedBy(mgr).
-		For(&websitev1alpha1.Static{}).
-		Owns(&apps.Deployment{}).
-		Complete(r)
+  return ctrl.NewControllerManagedBy(mgr).
+    For(&websitev1alpha1.Static{}).
+    Owns(&apps.Deployment{}).
+    Complete(r)
 }
 ```
 
@@ -236,11 +236,11 @@ Declare the structure of the status:
 ```go
 // StaticStatus defines the observed state of Static
 type StaticStatus struct {
-	// EXternalIP is the external IP of the load balancer
-	ExternalIP string `json:"externalIP,omitempty"`
+  // EXternalIP is the external IP of the load balancer
+  ExternalIP string `json:"externalIP,omitempty"`
 
-	// Replicas is the number of replicated pods
-	Replicas int32 `json:"replicas,omitempty"`
+  // Replicas is the number of replicated pods
+  Replicas int32 `json:"replicas,omitempty"`
 }
 ```
 
@@ -278,5 +278,50 @@ if len(found.Status.LoadBalancer.Ingress) > 0 && found.Status.LoadBalancer.Ingre
 Some fields for creating the deployment, service and hpa are the responsability of the DevOps/SRE team, not of the user creating the custom resource. We place such values in a configmap attached to the pod.
 
 ### Tests
+
+Setup reconciler (`suite_test.go`):
+
+```go
+var _ = BeforeSuite(func(done Done) {
+[...]
+  err = websitev1alpha1.AddToScheme(scheme.Scheme)
+  Expect(err).NotTo(HaveOccurred())
+
+  // Add controller
+  k8sManager, err = ctrl.NewManager(cfg, ctrl.Options{
+    Scheme: scheme.Scheme,
+  })
+  Expect(err).ToNot(HaveOccurred())
+
+  err = (&StaticReconciler{
+    Client: k8sManager.GetClient(),
+    Log:    ctrl.Log.WithName("controllers").WithName("Static"),
+    Scheme: k8sManager.GetScheme(),
+    Config: &StaticConfiguration{
+      MemoryRequestMi: 32,
+      MemoryLimitMi:   128,
+      CpuRequestMilli: 100,
+      CpuLimitMilli:   500,
+      CpuUtilization:  400,
+    },
+  }).SetupWithManager(k8sManager)
+  Expect(err).ToNot(HaveOccurred())
+
+  go func() {
+    err = k8sManager.Start(ctrl.SetupSignalHandler())
+    Expect(err).ToNot(HaveOccurred())
+  }()
+
+  // End add controller
+```
+
+See tests in `static_test.go`.
+
+Run the tests with:
+
+```shell
+ginkgo -v ./controllers
+```
+### Events
 
 ### Versioning
