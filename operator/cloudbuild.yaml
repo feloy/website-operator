@@ -1,5 +1,17 @@
 steps:
+- id: test
+  waitFor:
+  - '-'
+  name: 'eu.gcr.io/$PROJECT_ID/kubebuilder-tests'
+  entrypoint: bash
+  args:
+  - '-c'
+  - "go mod download && ginkgo -v ./controllers"
+  dir: operator
+
 - id: build
+  waitFor:
+  - '-'
   name: 'gcr.io/cloud-builders/docker'
   args:
   - 'build'
@@ -44,6 +56,7 @@ steps:
   waitFor:
   - 'config-build'
   - 'push'
+  - 'test'
   name: 'gcr.io/cloud-builders/gke-deploy'
   args:
   - 'apply'
