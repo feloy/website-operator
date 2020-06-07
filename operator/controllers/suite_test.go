@@ -24,6 +24,7 @@ import (
 	. "github.com/onsi/gomega"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
+	"k8s.io/client-go/tools/record"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/envtest"
 	"sigs.k8s.io/controller-runtime/pkg/envtest/printer"
@@ -42,6 +43,7 @@ var cfg *rest.Config
 var k8sClient client.Client
 var testEnv *envtest.Environment
 var k8sManager ctrl.Manager
+var eventRecorder *record.FakeRecorder
 
 func TestAPIs(t *testing.T) {
 	RegisterFailHandler(Fail)
@@ -73,6 +75,7 @@ var _ = BeforeSuite(func(done Done) {
 	})
 	Expect(err).ToNot(HaveOccurred())
 
+	eventRecorder = record.NewFakeRecorder(100)
 	err = (&StaticReconciler{
 		Client: k8sManager.GetClient(),
 		Log:    ctrl.Log.WithName("controllers").WithName("Static"),
@@ -84,6 +87,7 @@ var _ = BeforeSuite(func(done Done) {
 			CpuLimitMilli:   500,
 			CpuUtilization:  400,
 		},
+		Recorder: eventRecorder,
 	}).SetupWithManager(k8sManager)
 	Expect(err).ToNot(HaveOccurred())
 

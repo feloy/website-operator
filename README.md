@@ -273,6 +273,7 @@ if len(found.Status.LoadBalancer.Ingress) > 0 && found.Status.LoadBalancer.Ingre
 // +kubebuilder:printcolumn:name="Replicas",type=string,JSONPath=`.status.replicas`
 // +kubebuilder:printcolumn:name="External IP",type=string,JSONPath=`.status.externalIP`
 ```
+
 ### Operator configuration
 
 Some fields for creating the deployment, service and hpa are the responsability of the DevOps/SRE team, not of the user creating the custom resource. We place such values in a configmap attached to the pod.
@@ -322,6 +323,47 @@ Run the tests with:
 ```shell
 ginkgo -v ./controllers
 ```
+
 ### Events
+
+An operator is expected to send some event when it realizes some noticeable operation.
+
+Add a `Recorder` field to the `StaticReconciler` structure, and populate the field with the value returned by
+`mgr.GetEventRecorderFor("Static")`.
+
+To create a new event from the `Reconcile` function, use:
+
+```go
+r.Recorder.Eventf(static, "EventType", "Reason", "A message with some value %d", static.Status.Value)
+```
+
+`EventType` can get a value `Normal` or `Warning`. `Reason` should be a short, machine understandable string giving the reason for the transition into the object's current status.
+
+See more on the [Event spec page](https://www.k8sref.io/docs/part4/event-v1/).
+
+The events are visible with the `kubectl describe` command, as with other resources:
+
+```sh
+$ kubectl describe statics.website.example.com static
+[...]
+Type    Reason             Age   From    Message
+----    ------             ----  ----    -------
+Normal  create-deployment  2m7s  Static  The deployment 'demo.static-sample-deployment' has been created
+Normal  create-service     2m7s  Static  The service 'demo.static-sample-service' has been created
+Normal  create-hpa         2m7s  Static  The horizontal pod autoscaler 'demo.static-sample-hpa' has been created
+```
+
+To test that the operator send events, you can use the `FakeRecorder` provided by the `client-go` library. First create a `FakeRecorder` with `NewFakeRecorder(100)` which will embed a channel of strings of size 100 and pass this recorder to the Reconciler. Then, during the tests, listen this channel to get the events sent by the operator:
+
+```go
+By("creating an event create-deployment", func() {
+  var eventReceived string
+  select {
+  case eventReceived = <-eventRecorder.Events:
+  case <-time.After(timeout):
+  }
+  Expect(eventReceived).To(ContainSubstring("create-deployment"))
+})
+```
 
 ### Versioning

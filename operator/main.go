@@ -74,10 +74,11 @@ func main() {
 	}
 
 	if err = (&controllers.StaticReconciler{
-		Client: mgr.GetClient(),
-		Log:    ctrl.Log.WithName("controllers").WithName("Static"),
-		Scheme: mgr.GetScheme(),
-		Config: &staticConfig,
+		Client:   mgr.GetClient(),
+		Log:      ctrl.Log.WithName("controllers").WithName("Static"),
+		Scheme:   mgr.GetScheme(),
+		Config:   &staticConfig,
+		Recorder: mgr.GetEventRecorderFor("Static"),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Static")
 		os.Exit(1)

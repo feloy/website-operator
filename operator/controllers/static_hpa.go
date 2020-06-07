@@ -6,6 +6,7 @@ import (
 	websitev1alpha1 "example.com/website/v1alpha1/api/v1alpha1"
 	"github.com/go-logr/logr"
 	autoscalingv1 "k8s.io/api/autoscaling/v1"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
@@ -33,6 +34,8 @@ func (r *StaticReconciler) applyHPA(ctx context.Context, log logr.Logger, static
 			if err != nil {
 				return err
 			}
+
+			r.Recorder.Eventf(static, corev1.EventTypeNormal, "update-hpa", "The horizontal pod autoscaler '%s.%s' has been updated due to unexpected change", expected.Namespace, expected.Name)
 		}
 		return nil
 	}
@@ -51,6 +54,8 @@ func (r *StaticReconciler) applyHPA(ctx context.Context, log logr.Logger, static
 	if err = r.Create(ctx, expected); err != nil {
 		log.Error(err, "unable to create HPA for static")
 	}
+
+	r.Recorder.Eventf(static, corev1.EventTypeNormal, "create-hpa", "The horizontal pod autoscaler '%s.%s' has been created", expected.Namespace, expected.Name)
 
 	return nil
 }

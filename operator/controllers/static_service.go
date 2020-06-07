@@ -34,6 +34,8 @@ func (r *StaticReconciler) applyService(ctx context.Context, log logr.Logger, st
 			if err != nil {
 				return err
 			}
+
+			r.Recorder.Eventf(static, corev1.EventTypeNormal, "update-externalip", "The external IP has been updated to %s", static.Status.ExternalIP)
 		}
 
 		expected.Spec.Ports[0].NodePort = found.Spec.Ports[0].NodePort // Do not check nodeport
@@ -47,6 +49,8 @@ func (r *StaticReconciler) applyService(ctx context.Context, log logr.Logger, st
 			if err != nil {
 				return err
 			}
+
+			r.Recorder.Eventf(static, corev1.EventTypeNormal, "update-service", "The service '%s.%s' has been updated due to unexpected change", expected.Namespace, expected.Name)
 		}
 		return nil
 	}
@@ -65,6 +69,8 @@ func (r *StaticReconciler) applyService(ctx context.Context, log logr.Logger, st
 	if err = r.Create(ctx, expected); err != nil {
 		log.Error(err, "unable to create service for static")
 	}
+
+	r.Recorder.Eventf(static, "Normal", "create-service", "The service '%s.%s' has been created", expected.Namespace, expected.Name)
 
 	return nil
 }

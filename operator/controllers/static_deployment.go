@@ -35,6 +35,7 @@ func (r *StaticReconciler) applyDeployment(ctx context.Context, log logr.Logger,
 			if err != nil {
 				return err
 			}
+			r.Recorder.Eventf(static, corev1.EventTypeNormal, "update-replicas", "The replicas has been updated to %d", static.Status.Replicas)
 		}
 
 		if !equality.Semantic.DeepDerivative(expected.Spec, found.Spec) {
@@ -46,6 +47,8 @@ func (r *StaticReconciler) applyDeployment(ctx context.Context, log logr.Logger,
 			if err != nil {
 				return err
 			}
+
+			r.Recorder.Eventf(static, corev1.EventTypeNormal, "update-deployment", "The deployment '%s.%s' has been updated due to unexpected change", expected.Namespace, expected.Name)
 		}
 		return nil
 	}
@@ -64,6 +67,8 @@ func (r *StaticReconciler) applyDeployment(ctx context.Context, log logr.Logger,
 	if err = r.Create(ctx, expected); err != nil {
 		log.Error(err, "unable to create deployment for static")
 	}
+
+	r.Recorder.Eventf(static, corev1.EventTypeNormal, "create-deployment", "The deployment '%s.%s' has been created", expected.Namespace, expected.Name)
 
 	return nil
 }

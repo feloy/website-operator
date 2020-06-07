@@ -93,6 +93,15 @@ var _ = Describe("Static controller", func() {
 				Expect(deployment.ObjectMeta.OwnerReferences).To(ContainElement(expectedOwnerReference))
 			})
 
+			By("creating an event create-deployment", func() {
+				var eventReceived string
+				select {
+				case eventReceived = <-eventRecorder.Events:
+				case <-time.After(timeout):
+				}
+				Expect(eventReceived).To(ContainSubstring("create-deployment"))
+			})
+
 			By("creating a service owned by the Static resource", func() {
 				var service v1.Service
 				Eventually(func() error {
@@ -101,12 +110,30 @@ var _ = Describe("Static controller", func() {
 				Expect(service.ObjectMeta.OwnerReferences).To(ContainElement(expectedOwnerReference))
 			})
 
+			By("creating an event create-service", func() {
+				var eventReceived string
+				select {
+				case eventReceived = <-eventRecorder.Events:
+				case <-time.After(timeout):
+				}
+				Expect(eventReceived).To(ContainSubstring("create-service"))
+			})
+
 			By("creating an hpa owned by the Static resource", func() {
 				var hpa autoscalingv1.HorizontalPodAutoscaler
 				Eventually(func() error {
 					return k8sClient.Get(ctx, hpaKey, &hpa)
 				}, timeout, interval).Should(BeNil())
 				Expect(hpa.ObjectMeta.OwnerReferences).To(ContainElement(expectedOwnerReference))
+			})
+
+			By("creating an event create-hpa", func() {
+				var eventReceived string
+				select {
+				case eventReceived = <-eventRecorder.Events:
+				case <-time.After(timeout):
+				}
+				Expect(eventReceived).To(ContainSubstring("create-hpa"))
 			})
 		})
 
@@ -195,13 +222,6 @@ var _ = Describe("Static controller", func() {
 							Type: newStrategy,
 						}
 						Expect(k8sClient.Update(ctx, &deployment)).To(Succeed())
-						Eventually(func() bool {
-							f := &appsv1.Deployment{}
-							if err := k8sClient.Get(ctx, deploymentKey, f); err != nil {
-								return false
-							}
-							return f.Spec.Strategy.Type == newStrategy
-						}, timeout, interval).Should(BeTrue())
 					})
 
 					It("is changed back to the original strategy", func() {
@@ -231,13 +251,6 @@ var _ = Describe("Static controller", func() {
 					BeforeEach(func() {
 						service.Spec.Ports[0].Port = newPort
 						Expect(k8sClient.Update(ctx, &service)).To(Succeed())
-						Eventually(func() bool {
-							f := &v1.Service{}
-							if err := k8sClient.Get(ctx, serviceKey, f); err != nil {
-								return false
-							}
-							return f.Spec.Ports[0].Port == newPort
-						}, timeout, interval).Should(BeTrue())
 					})
 
 					It("is changed back to the original port", func() {
@@ -267,13 +280,6 @@ var _ = Describe("Static controller", func() {
 					BeforeEach(func() {
 						hpa.Spec.MinReplicas = &newMinReplicas
 						Expect(k8sClient.Update(ctx, &hpa)).To(Succeed())
-						Eventually(func() bool {
-							f := &autoscalingv1.HorizontalPodAutoscaler{}
-							if err := k8sClient.Get(ctx, hpaKey, f); err != nil {
-								return false
-							}
-							return *f.Spec.MinReplicas == newMinReplicas
-						}, timeout, interval).Should(BeTrue())
 					})
 
 					It("is changed back to the original minReplicas", func() {

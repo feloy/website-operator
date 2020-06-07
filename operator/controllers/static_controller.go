@@ -25,6 +25,7 @@ import (
 	autoscalingv1 "k8s.io/api/autoscaling/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/client-go/tools/record"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
@@ -34,9 +35,10 @@ import (
 // StaticReconciler reconciles a Static object
 type StaticReconciler struct {
 	client.Client
-	Log    logr.Logger
-	Scheme *runtime.Scheme
-	Config *StaticConfiguration
+	Log      logr.Logger
+	Scheme   *runtime.Scheme
+	Config   *StaticConfiguration
+	Recorder record.EventRecorder
 }
 
 // +kubebuilder:rbac:groups=website.example.com,resources=statics,verbs=get;list;watch;create;update;patch;delete
