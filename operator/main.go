@@ -69,7 +69,7 @@ func main() {
 
 	var staticConfig controllers.StaticConfiguration
 	if err = envconfig.Process("STATIC", &staticConfig); err != nil {
-		setupLog.Error(err, "unable to get configuration")
+		setupLog.Error(err, "unable to get configuration!")
 		os.Exit(1)
 	}
 
